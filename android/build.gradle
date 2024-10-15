@@ -1,0 +1,27 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.evaluationDependsOn(':app')
+}
+
+
+// tasks.register("clean", Delete) {
+//    delete rootProject.buildDir
+// }
+repositories {
+    mavenCentral()
+}
+//dependencies {
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+//}
