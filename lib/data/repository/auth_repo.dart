@@ -54,6 +54,7 @@ class AuthRepo {
           "phone": phone,
         },
       );
+
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -133,7 +134,7 @@ class AuthRepo {
     if (kDebugMode) {
       print('--------Device Token---------- $deviceToken--');
     }
-      return deviceToken;
+    return deviceToken;
   }
 
   // for  user token

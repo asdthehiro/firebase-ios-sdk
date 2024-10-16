@@ -105,10 +105,12 @@ class DioClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
+
       return response;
     } on FormatException catch (_) {
       throw const FormatException("Unable to process the data");
     } catch (e) {
+      //  ERROR[404] => PATH: https://anhaaragro.com/api/v1/auth/sendVerificationCodeByPhone
       rethrow;
     }
   }

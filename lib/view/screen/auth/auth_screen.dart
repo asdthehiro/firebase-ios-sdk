@@ -56,12 +56,11 @@ class _AuthScreenState extends State<AuthScreen>
                   children: [
                     Container(
                         height: 200,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor)),
-                    Image.asset(Images.loginBg,
-                        fit: BoxFit.cover,
-                        height: 200,
-                        opacity: const AlwaysStoppedAnimation(.15)),
+                        decoration: BoxDecoration(color: Colors.white)),
+                    // Image.asset(Images.loginBg,
+                    //     fit: BoxFit.cover,
+                    //     height: 200,
+                    //     opacity: const AlwaysStoppedAnimation(.15)),
                     Padding(
                       padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * .05),
@@ -89,92 +88,104 @@ class _AuthScreenState extends State<AuthScreen>
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(
-                                Dimensions.marginSizeLarge),
-                            child: Row(
-                              children: [
-                                InkWell(
-                                    onTap: () =>
-                                        authProvider.updateSelectedIndex(0),
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                              getTranslated(
-                                                  'sign_in', context)!,
-                                              style: authProvider
-                                                          .selectedIndex ==
-                                                      0
-                                                  ? titleRegular.copyWith(
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                      fontSize: Dimensions
-                                                          .fontSizeLarge)
-                                                  : titleRegular.copyWith(
-                                                      fontSize: Dimensions
-                                                          .fontSizeLarge)),
-                                          Container(
-                                            height: 3,
-                                            width: 25,
-                                            margin:
-                                                const EdgeInsets.only(top: 8),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        Dimensions
-                                                            .paddingSizeSmall),
-                                                color:
-                                                    authProvider.selectedIndex ==
-                                                            0
-                                                        ? Theme.of(context)
-                                                            .primaryColor
-                                                        : Colors.transparent),
-                                          )
-                                        ])),
-                                const SizedBox(
-                                    width: Dimensions.paddingSizeExtraLarge),
-                                InkWell(
-                                    onTap: () =>
-                                        authProvider.updateSelectedIndex(1),
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                              getTranslated(
-                                                  'sign_up', context)!,
-                                              style: authProvider
-                                                          .selectedIndex ==
-                                                      1
-                                                  ? titleRegular.copyWith(
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                      fontSize: Dimensions
-                                                          .fontSizeLarge)
-                                                  : titleRegular.copyWith(
-                                                      fontSize: Dimensions
-                                                          .fontSizeLarge)),
-                                          Container(
-                                            height: 3,
-                                            width: 25,
-                                            margin:
-                                                const EdgeInsets.only(top: 8),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        Dimensions
-                                                            .paddingSizeSmall),
-                                                color:
-                                                    authProvider.selectedIndex ==
-                                                            1
-                                                        ? Theme.of(context)
-                                                            .primaryColor
-                                                        : Colors.transparent),
-                                          )
-                                        ]))
-                              ],
+                          Container(
+                            margin: EdgeInsets.all(Dimensions.marginSizeLarge),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(color: Colors.grey),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                // left: Dimensions.marginSizeLarge,
+                                // right: Dimensions.marginSizeLarge,
+                                top: Dimensions.marginSizeLarge,
+                                bottom: 0,
+                              ),
+                              child: Row(
+                                children: [
+                                  InkWell(
+                                      onTap: () =>
+                                          authProvider.updateSelectedIndex(0),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                getTranslated(
+                                                    'sign_in', context)!,
+                                                style: authProvider
+                                                            .selectedIndex ==
+                                                        0
+                                                    ? titleRegular.copyWith(
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
+                                                        fontSize: Dimensions
+                                                            .fontSizeLarge)
+                                                    : titleRegular.copyWith(
+                                                        fontSize: Dimensions
+                                                            .fontSizeLarge)),
+                                            Container(
+                                              height: 3,
+                                              width: 50,
+                                              margin:
+                                                  const EdgeInsets.only(top: 8),
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .circular(
+                                                          Dimensions
+                                                              .paddingSizeSmall),
+                                                  color: authProvider
+                                                              .selectedIndex ==
+                                                          0
+                                                      ? Theme.of(context)
+                                                          .primaryColor
+                                                      : Colors.transparent),
+                                            )
+                                          ])),
+                                  const SizedBox(
+                                      width: Dimensions.paddingSizeExtraLarge),
+                                  InkWell(
+                                      onTap: () =>
+                                          authProvider.updateSelectedIndex(1),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                getTranslated(
+                                                    'sign_up', context)!,
+                                                style: authProvider
+                                                            .selectedIndex ==
+                                                        1
+                                                    ? titleRegular.copyWith(
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
+                                                        fontSize: Dimensions
+                                                            .fontSizeLarge)
+                                                    : titleRegular.copyWith(
+                                                        fontSize: Dimensions
+                                                            .fontSizeLarge)),
+                                            Container(
+                                              height: 3,
+                                              width: 50,
+                                              margin:
+                                                  const EdgeInsets.only(top: 8),
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .circular(
+                                                          Dimensions
+                                                              .paddingSizeSmall),
+                                                  color: authProvider
+                                                              .selectedIndex ==
+                                                          1
+                                                      ? Theme.of(context)
+                                                          .primaryColor
+                                                      : Colors.transparent),
+                                            )
+                                          ]))
+                                ],
+                              ),
                             ),
                           ),
                           authProvider.selectedIndex == 0

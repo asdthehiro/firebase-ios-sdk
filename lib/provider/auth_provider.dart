@@ -205,6 +205,7 @@ class AuthProvider with ChangeNotifier {
     try {
       ApiResponse apiResponse = await authRepo!.loginUsingPhone(phone);
       log("apiResponse.response ${apiResponse.response!.data}");
+
       _isLoading = false;
       if (apiResponse.response != null &&
           apiResponse.response!.statusCode == 200) {
