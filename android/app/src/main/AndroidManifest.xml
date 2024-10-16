@@ -117,6 +117,9 @@ xmlns:tools="http://schemas.android.com/tools">
             android:name="io.flutter.embedding.android.SplashScreenDrawable"
             android:resource="@drawable/launch_background"
             />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
 
         <provider
             android:name="vn.hunghd.flutterdownloader.DownloadedFileProvider"

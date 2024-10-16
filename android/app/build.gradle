@@ -22,7 +22,7 @@ if (keystorePropertiesFile.exists()) {
        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 android {
-    namespace "com.techno.HoOChat"
+    namespace "com.sixamtech.sixvalley"
     compileSdk flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"
 
