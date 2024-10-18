@@ -8,6 +8,7 @@ import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_exit_card.dar
 import 'package:flutter_sixvalley_ecommerce/view/screen/auth/widget/sign_in_widget.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/auth/widget/sign_up_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:group_radio_button/group_radio_button.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -188,8 +189,27 @@ class _AuthScreenState extends State<AuthScreen>
                               ),
                             ),
                           ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                left: 20, right: 20, top: 10, bottom: 10),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white),
+                            ),
+                            child: RadioGroup<int>.builder(
+                              direction: Axis.horizontal,
+                              groupValue: authProvider.methodIndex,
+                              onChanged: (value) =>
+                                  authProvider.updateMethodIndex(value ?? 0),
+                              items: [0, 1],
+                              itemBuilder: (item) => RadioButtonBuilder(
+                                (item == 0)
+                                    ? getTranslated('mobile', context)!
+                                    : getTranslated('EMAIL', context)!,
+                              ),
+                            ),
+                          ),
                           authProvider.selectedIndex == 0
-                              ? const SignInWidget()
+                              ? SignInWidget(method: authProvider.methodIndex)
                               : const SignUpWidget(),
                         ],
                       ),

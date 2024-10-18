@@ -12,12 +12,14 @@ import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_button.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_textfield.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/show_custom_snakbar.dart';
+import 'package:flutter_sixvalley_ecommerce/view/screen/auth/forget_password_screen.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/auth/verfiy_otp_screen.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/dashboard/dashboard_screen.dart';
 import 'package:provider/provider.dart';
 
 class SignInWidget extends StatefulWidget {
-  const SignInWidget({super.key});
+  final int method;
+  const SignInWidget({super.key, required this.method});
 
   @override
   SignInWidgetState createState() => SignInWidgetState();
@@ -25,7 +27,7 @@ class SignInWidget extends StatefulWidget {
 
 class SignInWidgetState extends State<SignInWidget> {
   TextEditingController? _emailController;
-  // TextEditingController? _passwordController;
+  TextEditingController? _passwordController;
   GlobalKey<FormState>? _formKeyLogin;
 
   @override
@@ -47,7 +49,7 @@ class SignInWidgetState extends State<SignInWidget> {
   }
 
   final FocusNode _emailNode = FocusNode();
-  // final FocusNode _passNode = FocusNode();
+  final FocusNode _passNode = FocusNode();
   LoginModel loginBody = LoginModel();
 
   void loginUser() async {
@@ -108,62 +110,71 @@ class SignInWidgetState extends State<SignInWidget> {
           key: _formKeyLogin,
           child: Column(
             children: [
-              // Hero(
-              //   tag: 'user',
-              //   child: CustomTextField(
+              (widget.method == 1)
+                  ? Hero(
+                      tag: 'user',
+                      child: CustomTextField(
+                        hintText: getTranslated('enter_email', context),
+                        labelText: getTranslated('EMAIL', context),
+                        focusNode: _emailNode,
+                        nextFocus: _passNode,
+                        isRequiredFill: true,
+                        // prefixIcon: Images.username,
+                        inputType: TextInputType.emailAddress,
+                        controller: _emailController,
+                        showLabelText: true,
+                        required: true,
+                        validator: (value) => ValidateCheck.validateEmptyText(
+                            value, "enter_email"),
+                      ),
+                    )
+                  : SizedBox.shrink(),
 
-              //     hintText: getTranslated('enter_phone_number', context),
-              //     labelText: getTranslated('phone', context),
-              //     focusNode: _emailNode,
-              //     // nextFocus: _passNode,
-              //     isRequiredFill: true,
-              //     prefixIcon: Images.username,
-              //     inputType: TextInputType.emailAddress,
-              //     controller: _emailController,
-              //     showLabelText: true,
-              //       required: true,
-              //       validator: (value) =>ValidateCheck.validateEmptyText(value, "enter_email_or_mobile")),
-              // ),
-
-              Container(
-                margin: const EdgeInsets.only(
-                    left: Dimensions.marginSizeDefault,
-                    right: Dimensions.marginSizeDefault,
-                    top: Dimensions.marginSizeSmall),
-                child: CustomTextField(
-                  hintText: getTranslated('enter_mobile_number', context),
-                  labelText: getTranslated('enter_mobile_number', context),
-                  controller: _emailController,
-                  focusNode: _emailNode,
-                  // nextFocus: _passwordFocus,
-                  required: true,
-                  showCodePicker: true,
-                  countryDialCode: authProvider.countryDialCode,
-                  onCountryChanged: (CountryCode countryCode) {
-                    authProvider.countryDialCode = countryCode.dialCode!;
-                    authProvider.setCountryCode(countryCode.dialCode!);
-                  },
-                  isAmount: true,
-                  validator: (value) => ValidateCheck.validateEmptyText(
-                      value, "phone_must_be_required"),
-                  inputAction: TextInputAction.next,
-                  inputType: TextInputType.phone,
-                ),
-              ),
+              (widget.method == 0)
+                  ? Container(
+                      margin: const EdgeInsets.only(
+                          left: Dimensions.marginSizeDefault,
+                          right: Dimensions.marginSizeDefault,
+                          top: Dimensions.marginSizeSmall),
+                      child: CustomTextField(
+                        hintText: getTranslated('enter_mobile_number', context),
+                        labelText:
+                            getTranslated('enter_mobile_number', context),
+                        controller: _emailController,
+                        focusNode: _emailNode,
+                        // nextFocus: _passwordFocus,
+                        required: true,
+                        showCodePicker: true,
+                        countryDialCode: authProvider.countryDialCode,
+                        onCountryChanged: (CountryCode countryCode) {
+                          authProvider.countryDialCode = countryCode.dialCode!;
+                          authProvider.setCountryCode(countryCode.dialCode!);
+                        },
+                        isAmount: true,
+                        validator: (value) => ValidateCheck.validateEmptyText(
+                            value, "phone_must_be_required"),
+                        inputAction: TextInputAction.next,
+                        inputType: TextInputType.phone,
+                      ),
+                    )
+                  : SizedBox.shrink(),
 
               // const SizedBox(height: Dimensions.paddingSizeDefault,),
 
-              // CustomTextField(
-              //   showLabelText: true,
-              //     required: true,
-              //   labelText: getTranslated('password', context),
-              //   hintText: getTranslated('enter_your_password', context),
-              //   inputAction: TextInputAction.done,
-              //   isPassword: true,
-              //   prefixIcon: Images.pass,
-              //   focusNode: _passNode,
-              //   controller: _passwordController,
-              //     validator: (value) =>ValidateCheck.validateEmptyText(value, 'ENTER_YOUR_PASSWORD')),
+              (widget.method == 1)
+                  ? CustomTextField(
+                      showLabelText: true,
+                      required: true,
+                      labelText: getTranslated('password', context),
+                      hintText: getTranslated('enter_your_password', context),
+                      inputAction: TextInputAction.done,
+                      isPassword: true,
+                      // prefixIcon: Images.pass,
+                      focusNode: _passNode,
+                      controller: _passwordController,
+                      validator: (value) => ValidateCheck.validateEmptyText(
+                          value, 'ENTER_YOUR_PASSWORD'))
+                  : SizedBox.shrink(),
 
               const SizedBox(height: Dimensions.paddingSizeExtraLarge),
               // Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -205,17 +216,22 @@ class SignInWidgetState extends State<SignInWidget> {
                     child: Text(getTranslated('remember', context)!,
                         style: textRegular),
                   ),
+                  Spacer(),
+                  (widget.method == 1)
+                      ? InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      const ForgetPasswordScreen())),
+                          child: Text(
+                              '${getTranslated('forget_password', context)!}?',
+                              style: textRegular.copyWith(
+                                  color: ColorResources.getPrimary(context))),
+                        )
+                      : SizedBox.shrink(),
                 ],
               ),
-
-              // InkWell(
-              //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ForgetPasswordScreen())),
-              //   child: Text('${getTranslated('forget_password', context)!}?',
-              //       style: titilliumRegular.copyWith(
-              //       color: ColorResources.getPrimary(context))),
-              // ),
-              //   ],
-              // ),
 
               Container(
                 margin: const EdgeInsets.only(bottom: 20, top: 30),

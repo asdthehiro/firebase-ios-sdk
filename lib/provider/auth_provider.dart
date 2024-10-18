@@ -26,7 +26,9 @@ class AuthProvider with ChangeNotifier {
   bool _isLoading = false;
   bool? _isRemember = false;
   int _selectedIndex = 0;
+  int _methodIndex = 0;
   int get selectedIndex => _selectedIndex;
+  int get methodIndex => _methodIndex;
 
   String countryDialCode = '+252';
   void setCountryCode(String countryCode, {bool notify = true}) {
@@ -38,6 +40,13 @@ class AuthProvider with ChangeNotifier {
 
   updateSelectedIndex(int index, {bool notify = true}) {
     _selectedIndex = index;
+    if (notify) {
+      notifyListeners();
+    }
+  }
+
+  updateMethodIndex(int index, {bool notify = true}) {
+    _methodIndex = index;
     if (notify) {
       notifyListeners();
     }
