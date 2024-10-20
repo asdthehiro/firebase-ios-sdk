@@ -19,6 +19,8 @@ import 'package:flutter_sixvalley_ecommerce/provider/order_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/show_custom_snakbar.dart';
 import 'package:provider/provider.dart';
 
+import '../view/screen/dashboard/dashboard_screen.dart';
+
 class AuthProvider with ChangeNotifier {
   final AuthRepo? authRepo;
   AuthProvider({required this.authRepo});
@@ -268,11 +270,14 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future login(LoginModel loginBody, Function callback) async {
+  Future login(
+      LoginModel loginBody, Function callback, BuildContext context) async {
     _isLoading = true;
     notifyListeners();
     ApiResponse apiResponse = await authRepo!.login(loginBody);
+
     _isLoading = false;
+
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       clearGuestId();
@@ -310,7 +315,8 @@ class AuthProvider with ChangeNotifier {
       await Provider.of<OrderProvider>(Get.context!, listen: false)
           .getOrderList(1, 'delivered');
 
-      callback(true, token, temporaryToken, message);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => const DashBoardScreen()));
       notifyListeners();
     } else {
       _isLoading = false;
@@ -330,6 +336,7 @@ class AuthProvider with ChangeNotifier {
       callback(false, '', '', errorMessage);
       notifyListeners();
     }
+    print("ended");
   }
 
   Future<void> updateToken(BuildContext context) async {

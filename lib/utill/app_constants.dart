@@ -14,7 +14,7 @@ class AppConstants {
   static const String brandProductUri = '/api/v1/brands/products/';
   static const String categoryProductUri = '/api/v1/categories/products/';
   static const String registrationUri = '/api/v1/auth/register';
-  static const String loginUri = '/api/v1/auth/login';
+  static const String loginUri = 'https://anhaaragro.com/api/v1/auth/login';
   static const String sendVerificationCodeByPhone = 'https://anhaaragro.com/api/v1/auth/sendVerificationCodeByPhone';
   static const String verifyCode = 'https://anhaaragro.com/api/v1/auth/verifyCode';
   static const String register = 'https://anhaaragro.com/api/v1/auth/register';

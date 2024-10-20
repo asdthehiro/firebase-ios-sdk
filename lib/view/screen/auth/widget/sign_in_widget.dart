@@ -35,16 +35,17 @@ class SignInWidgetState extends State<SignInWidget> {
     super.initState();
     _formKeyLogin = GlobalKey<FormState>();
     _emailController = TextEditingController();
-    // _passwordController = TextEditingController();
+    _passwordController = TextEditingController();
     _emailController!.text =
         (Provider.of<AuthProvider>(context, listen: false).getUserEmail());
-    // _passwordController!.text = (Provider.of<AuthProvider>(context, listen: false).getUserPassword());
+    _passwordController!.text =
+        (Provider.of<AuthProvider>(context, listen: false).getUserPassword());
   }
 
   @override
   void dispose() {
     _emailController!.dispose();
-    // _passwordController!.dispose();
+    _passwordController!.dispose();
     super.dispose();
   }
 
@@ -56,17 +57,19 @@ class SignInWidgetState extends State<SignInWidget> {
     if (_formKeyLogin!.currentState!.validate()) {
       _formKeyLogin!.currentState!.save();
       String email = _emailController!.text.trim();
-      // String password = _passwordController!.text.trim();
+      String password = _passwordController!.text.trim();
       if (!Provider.of<AuthProvider>(context, listen: false).isGuestIdExist()) {
         Provider.of<AuthProvider>(context, listen: false).getGuestIdUrl();
       }
-      // if (Provider.of<AuthProvider>(context, listen: false).isRemember!) {
-      //   Provider.of<AuthProvider>(context, listen: false).saveUserEmail(email, password);
-      // } else {
-      //   Provider.of<AuthProvider>(context, listen: false).clearUserEmailAndPassword();
-      // }
+      if (Provider.of<AuthProvider>(context, listen: false).isRemember!) {
+        Provider.of<AuthProvider>(context, listen: false)
+            .saveUserEmail(email, password);
+      } else {
+        Provider.of<AuthProvider>(context, listen: false)
+            .clearUserEmailAndPassword();
+      }
       loginBody.email = email;
-      // loginBody.password = password;
+      loginBody.password = password;
 
       loginBody.guestId =
           Provider.of<AuthProvider>(context, listen: false).getGuestToken() ??
@@ -74,24 +77,34 @@ class SignInWidgetState extends State<SignInWidget> {
       if (email.isEmpty) {
         showCustomSnackBar(
             getTranslated('user_name_is_required', context), context);
-        // }else if (password.isEmpty){
-        //   showCustomSnackBar(getTranslated('password_is_required', context), context);
-        // }else if (password.length<8){
-        //   showCustomSnackBar(getTranslated('minimum_password_length', context), context);
+      } else if (password.isEmpty) {
+        showCustomSnackBar(
+            getTranslated('password_is_required', context), context);
+      } else if (password.length < 8) {
+        showCustomSnackBar(
+            getTranslated('minimum_password_length', context), context);
       } else {
-        await Provider.of<AuthProvider>(context, listen: false)
-            .loginPhone(email, route);
+        (widget.method == 0)
+            ? await Provider.of<AuthProvider>(context, listen: false)
+                .loginPhone(email, route)
+            : await Provider.of<AuthProvider>(context, listen: false)
+                .login(loginBody, route, context);
       }
     }
   }
 
   route(bool isRoute, String? token, String? errorMessage) async {
     if (isRoute) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => ConfirmMobileScreen(
-          phone: "${_emailController?.text}",
-        ),
-      ));
+      if (widget.method == 0) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => ConfirmMobileScreen(
+            phone: "${_emailController?.text}",
+          ),
+        ));
+      } else {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (_) => const DashBoardScreen()));
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(errorMessage!), backgroundColor: Colors.red));
