@@ -172,8 +172,23 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const BannersView(),
+                    // Category
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: Dimensions.paddingSizeExtraExtraSmall,
+                          vertical: Dimensions.paddingSizeExtraSmall),
+                      child: TitleRow(
+                          title: getTranslated('CATEGORY', context),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const AllCategoryScreen()))),
+                    ),
+                    const SizedBox(height: Dimensions.paddingSizeSmall),
+                    const CategoryView(isHomePage: true),
                     const SizedBox(height: Dimensions.homePagePadding),
+                    const BannersView(),
+                    // const SizedBox(height: Dimensions.homePagePadding),
 
                     // Flash Deal
                     Consumer<FlashDealProvider>(
@@ -236,21 +251,6 @@ class _HomePageState extends State<HomePage> {
                             : const FlashDealShimmer();
                       },
                     ),
-
-                    // Category
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: Dimensions.paddingSizeExtraExtraSmall,
-                          vertical: Dimensions.paddingSizeExtraSmall),
-                      child: TitleRow(
-                          title: getTranslated('CATEGORY', context),
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const AllCategoryScreen()))),
-                    ),
-                    const SizedBox(height: Dimensions.paddingSizeSmall),
-                    const CategoryView(isHomePage: true),
 
                     // Featured Deal
 

@@ -25,12 +25,12 @@ class BannersView extends StatelessWidget {
                 bannerProvider.mainBannerList != null
                     ? bannerProvider.mainBannerList!.isNotEmpty
                         ? SizedBox(
-                            height: width * 0.39,
+                            height: MediaQuery.of(context).size.height * 0.18,
                             width: width,
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: width * 0.33,
+                                  height:  MediaQuery.of(context).size.height * 0.15,
                                   width: width,
                                   child: CarouselSlider.builder(
                                     options: CarouselOptions(
@@ -92,6 +92,7 @@ class BannersView extends StatelessWidget {
                                                               .withOpacity(
                                                                   .05)),
                                               child: CustomImage(
+                                                  height: 100,
                                                   image:
                                                       '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.bannerImageUrl}'
                                                       '/${bannerProvider.mainBannerList![index].photo}')),
@@ -132,7 +133,7 @@ class BannersView extends StatelessWidget {
                 if (bannerProvider.mainBannerList != null &&
                     bannerProvider.mainBannerList!.isNotEmpty)
                   Positioned(
-                    bottom: 0,
+                    bottom: 10,
                     left: 0,
                     right: 0,
                     child: Row(

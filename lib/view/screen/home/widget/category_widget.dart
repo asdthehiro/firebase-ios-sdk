@@ -31,22 +31,16 @@ class CategoryWidget extends StatelessWidget {
                   ? 0
                   : Dimensions.homePagePadding),
       child: Column(children: [
-        Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.black.withOpacity(.25)),
-              borderRadius: BorderRadius.all(Radius.circular(8))),
-          padding: EdgeInsets.all(5),
-          child: CircleAvatar(
-              backgroundColor: Colors.orange[300],
-              radius: 50,
-              child: CustomImage(
-                image:
-                    '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.categoryImageUrl}'
-                    '/${category.icon}',
-                width: MediaQuery.of(context).size.width * 0.20,
-                fit: BoxFit.contain,
-              )),
-        ),
+        CircleAvatar(
+            backgroundColor: Colors.orange[300],
+            radius: 50,
+            child: CustomImage(
+              image:
+                  '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.categoryImageUrl}'
+                  '/${category.icon}',
+              width: MediaQuery.of(context).size.width * 0.20,
+              fit: BoxFit.contain,
+            )),
         const SizedBox(height: Dimensions.paddingSizeExtraSmall),
         Center(
           child: SizedBox(
