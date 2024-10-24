@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(height: Dimensions.paddingSizeSmall),
                     const CategoryView(isHomePage: true),
-                    const SizedBox(height: Dimensions.homePagePadding),
+                    // const SizedBox(height: Dimensions.homePagePadding),
                     const BannersView(),
                     // const SizedBox(height: Dimensions.homePagePadding),
 
