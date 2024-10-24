@@ -15,36 +15,41 @@ class CategoryView extends StatelessWidget {
     return Consumer<CategoryProvider>(
       builder: (context, categoryProvider, child) {
         return categoryProvider.categoryList.isNotEmpty
-            ? SizedBox(
-                height: MediaQuery.of(context).size.height * 0.33,
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, crossAxisSpacing: 20),
-                  padding: EdgeInsets.zero,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categoryProvider.categoryList.length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => BrandAndCategoryProductScreen(
-                                      isBrand: false,
-                                      id: categoryProvider
-                                          .categoryList[index].id
-                                          .toString(),
-                                      name: categoryProvider
-                                          .categoryList[index].name,
-                                    )));
-                      },
-                      child: CategoryWidget(
-                          category: categoryProvider.categoryList[index],
-                          index: index,
-                          length: categoryProvider.categoryList.length),
-                    );
-                  },
+            ? Center(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.28,
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 5,
+                    ),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 8,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => BrandAndCategoryProductScreen(
+                                        isBrand: false,
+                                        id: categoryProvider
+                                            .categoryList[index].id
+                                            .toString(),
+                                        name: categoryProvider
+                                            .categoryList[index].name,
+                                      )));
+                        },
+                        child: CategoryWidget(
+                            category: categoryProvider.categoryList[index],
+                            index: index,
+                            length: categoryProvider.categoryList.length),
+                      );
+                    },
+                  ),
                 ),
               )
             : const CategoryShimmer();

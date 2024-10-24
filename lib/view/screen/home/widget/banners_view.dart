@@ -25,12 +25,12 @@ class BannersView extends StatelessWidget {
                 bannerProvider.mainBannerList != null
                     ? bannerProvider.mainBannerList!.isNotEmpty
                         ? SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.18,
+                            height: MediaQuery.of(context).size.height * 0.21,
                             width: width,
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height:  MediaQuery.of(context).size.height * 0.15,
+                                  height:  MediaQuery.of(context).size.height * 0.18,
                                   width: width,
                                   child: CarouselSlider.builder(
                                     options: CarouselOptions(

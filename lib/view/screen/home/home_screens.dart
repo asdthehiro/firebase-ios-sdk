@@ -260,118 +260,71 @@ class _HomePageState extends State<HomePage> {
                                 null
                             ? featuredDealProvider
                                     .featuredDealProductList!.isNotEmpty
-                                ? Stack(children: [
-                                    Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 150,
-                                        color: Provider.of<ThemeProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .darkTheme
-                                            ? Theme.of(context)
-                                                .primaryColor
-                                                .withOpacity(.20)
-                                            : Theme.of(context)
-                                                .primaryColor
-                                                .withOpacity(.125)),
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            bottom: Dimensions.homePagePadding),
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: Dimensions
-                                                          .paddingSizeDefault),
-                                              child: TitleRow(
-                                                title:
-                                                    '${getTranslated('featured_deals', context)}',
-                                                onTap: () => Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            const FeaturedDealScreen())),
-                                              ),
-                                            ),
-                                            const FeaturedDealsView(),
-                                          ],
-                                        )),
-                                  ])
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: Dimensions.homePagePadding),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: Dimensions
+                                                  .paddingSizeDefault),
+                                          child: TitleRow(
+                                            title:
+                                                '${getTranslated('featured_deals', context)}',
+                                            onTap: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        const FeaturedDealScreen())),
+                                          ),
+                                        ),
+                                        const FeaturedDealsView(),
+                                      ],
+                                    ))
                                 : const SizedBox.shrink()
                             : const FindWhatYouNeedShimmer();
                       },
                     ),
-                    SizedBox(height: 10),
+                    
                     // Featured Products
                     Consumer<ProductProvider>(builder: (context, featured, _) {
                       return featured.featuredProductList != null
                           ? featured.featuredProductList!.isNotEmpty
-                              ? Stack(
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 25),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.45,
-                                          decoration: BoxDecoration(
-                                              borderRadius: const BorderRadius
-                                                  .only(
-                                                  topLeft: Radius.circular(
-                                                      Dimensions
-                                                          .paddingSizeDefault),
-                                                  bottomLeft: Radius.circular(
-                                                      Dimensions
-                                                          .paddingSizeDefault)),
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondaryContainer),
-                                        )),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: Dimensions
-                                                  .paddingSizeExtraSmall,
-                                              vertical: Dimensions
-                                                  .paddingSizeExtraSmall),
-                                          child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 20,
-                                                  left: 50,
-                                                  bottom: Dimensions
-                                                      .paddingSizeSmall),
-                                              child: TitleRow(
-                                                  title: getTranslated(
-                                                      'featured_products',
-                                                      context),
-                                                  onTap: () => Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (_) =>
-                                                              AllProductScreen(
-                                                                  productType:
-                                                                      ProductType
-                                                                          .featuredProduct))))),
-                                        ),
-                                        Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: Dimensions
+                                              .paddingSizeExtraExtraSmall,
+                                          vertical:
+                                              Dimensions.paddingSizeExtraSmall),
+                                      child: Padding(
                                           padding: const EdgeInsets.only(
+                                             
+                                             
                                               bottom:
-                                                  Dimensions.homePagePadding),
-                                          child: FeaturedProductView(
-                                            scrollController: _scrollController,
-                                            isHome: true,
-                                          ),
-                                        ),
-                                      ],
+                                                  Dimensions.paddingSizeSmall),
+                                          child: TitleRow(
+                                              title: getTranslated(
+                                                  'featured_products', context),
+                                              onTap: () => Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          AllProductScreen(
+                                                              productType:
+                                                                  ProductType
+                                                                      .featuredProduct))))),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          bottom: Dimensions.homePagePadding),
+                                      child: FeaturedProductView(
+                                        scrollController: _scrollController,
+                                        isHome: true,
+                                      ),
                                     ),
                                   ],
                                 )
