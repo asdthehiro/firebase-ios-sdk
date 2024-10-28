@@ -17,29 +17,29 @@ class AddressModel {
   String? guestId;
   String? email;
 
-  AddressModel(
-      {this.id,
-        this.customerId,
-        this.contactPersonName,
-        this.addressType,
-        this.address,
-        this.city,
-        this.zip,
-        this.phone,
-        this.createdAt,
-        this.updatedAt,
-        this.state,
-        this.country,
-        this.latitude,
-        this.longitude,
-        this.isBilling,
-        this.guestId,
-        this.email,
-      });
+  AddressModel({
+    this.id,
+    this.customerId,
+    this.contactPersonName,
+    this.addressType,
+    this.address,
+    this.city,
+    this.zip,
+    this.phone,
+    this.createdAt,
+    this.updatedAt,
+    this.state,
+    this.country,
+    this.latitude,
+    this.longitude,
+    this.isBilling,
+    this.guestId,
+    this.email,
+  });
 
   AddressModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    customerId = json['customer_id'];
+    customerId = int.tryParse(json['customer_id']);
     contactPersonName = json['contact_person_name'];
     addressType = json['address_type'];
     address = json['address'];
@@ -52,7 +52,7 @@ class AddressModel {
     country = json['country'];
     latitude = json['latitude'];
     longitude = json['longitude'];
-    isBilling = json['is_billing'];
+    isBilling = (json['is_billing'] == true) ? 1 : 0;
     email = json['email'];
   }
 

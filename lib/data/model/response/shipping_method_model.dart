@@ -11,25 +11,23 @@ class ShippingMethodModel {
 
   ShippingMethodModel(
       {this.id,
-        this.creatorId,
-        this.creatorType,
-        this.title,
-        this.cost,
-        this.duration,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
-
-
+      this.creatorId,
+      this.creatorType,
+      this.title,
+      this.cost,
+      this.duration,
+      this.status,
+      this.createdAt,
+      this.updatedAt});
 
   ShippingMethodModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     creatorId = json['creator_id'];
     creatorType = json['creator_type'];
     title = json['title'];
-    cost = json['cost'].toDouble();
+    cost = double.tryParse(json['cost']);
     duration = json['duration'];
-    status = json['status'];
+    status = (json['status'] == true)? 1:0;
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
