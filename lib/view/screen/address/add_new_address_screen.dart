@@ -13,8 +13,6 @@ import 'package:flutter_sixvalley_ecommerce/provider/location_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/provider/order_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/provider/profile_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_button.dart';
@@ -317,77 +315,77 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                       ),
 
                       // for label us
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: Dimensions.paddingSizeSmall),
-                        child: Text(
-                          getTranslated('label_us', context)!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall!
-                              .copyWith(
-                                  color: ColorResources.getHint(context),
-                                  fontSize: Dimensions.fontSizeLarge),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(
+                      //       vertical: Dimensions.paddingSizeSmall),
+                      //   child: Text(
+                      //     getTranslated('label_us', context)!,
+                      //     style: Theme.of(context)
+                      //         .textTheme
+                      //         .displaySmall!
+                      //         .copyWith(
+                      //             color: ColorResources.getHint(context),
+                      //             fontSize: Dimensions.fontSizeLarge),
+                      //   ),
+                      // ),
 
-                      SizedBox(
-                        height: 50,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: locationProvider.addressTypeList.length,
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () => locationProvider.updateAddressIndex(
-                                index, true),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: Dimensions.paddingSizeDefault,
-                                  horizontal: Dimensions.paddingSizeLarge),
-                              margin: const EdgeInsets.only(right: 17),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      Dimensions.paddingSizeSmall),
-                                  border: Border.all(
-                                      color:
-                                          locationProvider.selectAddressIndex ==
-                                                  index
-                                              ? Theme.of(context).primaryColor
-                                              : Theme.of(context)
-                                                  .primaryColor
-                                                  .withOpacity(.125))),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                      width: 20,
-                                      child: Image.asset(
-                                          locationProvider
-                                              .addressTypeList[index].icon,
-                                          color: locationProvider
-                                                      .selectAddressIndex ==
-                                                  index
-                                              ? Theme.of(context).primaryColor
-                                              : Theme.of(context)
-                                                  .primaryColor
-                                                  .withOpacity(.35))),
-                                  const SizedBox(
-                                    width: Dimensions.paddingSizeSmall,
-                                  ),
-                                  Text(
-                                    getTranslated(
-                                        locationProvider
-                                            .addressTypeList[index].title,
-                                        context)!,
-                                    style: textRegular.copyWith(),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: 50,
+                      //   child: ListView.builder(
+                      //     shrinkWrap: true,
+                      //     scrollDirection: Axis.horizontal,
+                      //     physics: const BouncingScrollPhysics(),
+                      //     itemCount: locationProvider.addressTypeList.length,
+                      //     itemBuilder: (context, index) => InkWell(
+                      //       onTap: () => locationProvider.updateAddressIndex(
+                      //           index, true),
+                      //       child: Container(
+                      //         padding: const EdgeInsets.symmetric(
+                      //             vertical: Dimensions.paddingSizeDefault,
+                      //             horizontal: Dimensions.paddingSizeLarge),
+                      //         margin: const EdgeInsets.only(right: 17),
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(
+                      //                 Dimensions.paddingSizeSmall),
+                      //             border: Border.all(
+                      //                 color:
+                      //                     locationProvider.selectAddressIndex ==
+                      //                             index
+                      //                         ? Theme.of(context).primaryColor
+                      //                         : Theme.of(context)
+                      //                             .primaryColor
+                      //                             .withOpacity(.125))),
+                      //         child: Row(
+                      //           mainAxisAlignment: MainAxisAlignment.center,
+                      //           children: [
+                      //             SizedBox(
+                      //                 width: 20,
+                      //                 child: Image.asset(
+                      //                     locationProvider
+                      //                         .addressTypeList[index].icon,
+                      //                     color: locationProvider
+                      //                                 .selectAddressIndex ==
+                      //                             index
+                      //                         ? Theme.of(context).primaryColor
+                      //                         : Theme.of(context)
+                      //                             .primaryColor
+                      //                             .withOpacity(.35))),
+                      //             const SizedBox(
+                      //               width: Dimensions.paddingSizeSmall,
+                      //             ),
+                      //             Text(
+                      //               getTranslated(
+                      //                   locationProvider
+                      //                       .addressTypeList[index].title,
+                      //                   context)!,
+                      //               style: textRegular.copyWith(),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
 
                       Padding(
                         padding: const EdgeInsets.symmetric(

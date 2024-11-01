@@ -104,7 +104,7 @@ class AppConstants {
   static const String couponListApi = '/api/v1/coupon/list?limit=100&offset=';
   static const String sellerWiseCouponListApi = '/api/v1/coupons/';
   static const String sellerWiseBestSellingProduct = '/api/v1/seller/';
-  static const String digitalPayment = '/api/v1/digital-payment';
+  static const String digitalPayment = '/api/v4/digital-payment';
   static const String offlinePaymentList = '/api/v1/customer/order/offline-payment-method-list';
   static const String sellerWiseCategoryList = '/api/v1/categories?seller_id=';
   static const String sellerWiseBrandList = '/api/v1/brands?seller_id=';
