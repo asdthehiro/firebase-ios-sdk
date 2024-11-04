@@ -15,6 +15,8 @@ import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_textfield.dar
 import 'package:flutter_sixvalley_ecommerce/view/screen/dashboard/dashboard_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../helper/email_checker.dart';
+
 class SignUpWidget extends StatefulWidget {
   const SignUpWidget({super.key});
 
@@ -25,19 +27,19 @@ class SignUpWidget extends StatefulWidget {
 class SignUpWidgetState extends State<SignUpWidget> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
-  // final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  // final TextEditingController _passwordController = TextEditingController();
-  // final TextEditingController _confirmPasswordController = TextEditingController();
-  // final TextEditingController _referController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _referController = TextEditingController();
 
   final FocusNode _fNameFocus = FocusNode();
   final FocusNode _lNameFocus = FocusNode();
-  // final FocusNode _emailFocus = FocusNode();
+  final FocusNode _emailFocus = FocusNode();
   final FocusNode _phoneFocus = FocusNode();
-  // final FocusNode _passwordFocus = FocusNode();
-  // final FocusNode _confirmPasswordFocus = FocusNode();
-  // final FocusNode _referFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
+  final FocusNode _confirmPasswordFocus = FocusNode();
+  final FocusNode _referFocus = FocusNode();
 
   RegisterModel register = RegisterModel();
 
@@ -138,21 +140,21 @@ class SignUpWidgetState extends State<SignUpWidget> {
                 ),
               ),
 
-                // Container(
-                //   margin: const EdgeInsets.only(left: Dimensions.marginSizeDefault, right: Dimensions.marginSizeDefault,
-                //       top: Dimensions.marginSizeSmall),
-                //   child: CustomTextField(
-                //     hintText: getTranslated('enter_your_email', context),
-                //     labelText: getTranslated('enter_your_email', context),
-                //     focusNode: _emailFocus,
-                //     nextFocus: _phoneFocus,
-                //     required: true,
-                //     inputType: TextInputType.emailAddress,
-                //     controller: _emailController,
-                //     prefixIcon: Images.email,
-                //     validator: (value) => ValidateCheck.validateEmail(value),
-                //   ),
-                // ),
+                Container(
+                  margin: const EdgeInsets.only(left: Dimensions.marginSizeDefault, right: Dimensions.marginSizeDefault,
+                      top: Dimensions.marginSizeSmall),
+                  child: CustomTextField(
+                    hintText: getTranslated('enter_your_email', context),
+                    labelText: getTranslated('enter_your_email', context),
+                    focusNode: _emailFocus,
+                    nextFocus: _phoneFocus,
+                    required: true,
+                    inputType: TextInputType.emailAddress,
+                    controller: _emailController,
+                    prefixIcon: Images.email,
+                    validator: (value) => ValidateCheck.validateEmail(value),
+                  ),
+                ),
 
 
 
@@ -164,7 +166,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
                     labelText: getTranslated('enter_mobile_number', context),
                     controller: _phoneController,
                     focusNode: _phoneFocus,
-                    // nextFocus: _passwordFocus,
+                    nextFocus: _passwordFocus,
                     required: true,
                     showCodePicker: true,
                     countryDialCode: authProvider.countryDialCode,
@@ -182,55 +184,55 @@ class SignUpWidgetState extends State<SignUpWidget> {
 
 
 
-                // Container(
-                //   margin: const EdgeInsets.only(left: Dimensions.marginSizeDefault,
-                //       right: Dimensions.marginSizeDefault, top: Dimensions.marginSizeSmall),
-                //   child: CustomTextField(
-                //     hintText: getTranslated('minimum_password_length', context),
-                //     labelText: getTranslated('password', context),
-                //     controller: _passwordController,
-                //     focusNode: _passwordFocus,
-                //     isPassword: true,required: true,
-                //     nextFocus: _confirmPasswordFocus,
-                //     inputAction: TextInputAction.next,
-                //     validator: (value)=> ValidateCheck.validatePassword(value, "password_must_be_required"),
-                //     prefixIcon: Images.pass,
-                //   ),
-                // ),
+                Container(
+                  margin: const EdgeInsets.only(left: Dimensions.marginSizeDefault,
+                      right: Dimensions.marginSizeDefault, top: Dimensions.marginSizeSmall),
+                  child: CustomTextField(
+                    hintText: getTranslated('minimum_password_length', context),
+                    labelText: getTranslated('password', context),
+                    controller: _passwordController,
+                    focusNode: _passwordFocus,
+                    isPassword: true,required: true,
+                    nextFocus: _confirmPasswordFocus,
+                    inputAction: TextInputAction.next,
+                    validator: (value)=> ValidateCheck.validatePassword(value, "password_must_be_required"),
+                    prefixIcon: Images.pass,
+                  ),
+                ),
 
 
 
-                // Hero(
-                //   tag: 'user',
-                //   child: Container(
-                //     margin: const EdgeInsets.only(left: Dimensions.marginSizeDefault,
-                //         right: Dimensions.marginSizeDefault, top: Dimensions.marginSizeSmall),
-                //     child: CustomTextField(
-                //       isPassword: true,required: true,
-                //       hintText: getTranslated('re_enter_password', context),
-                //       labelText: getTranslated('re_enter_password', context),
-                //       controller: _confirmPasswordController,
-                //       focusNode: _confirmPasswordFocus,
-                //       inputAction: TextInputAction.done,
-                //         validator: (value)=> ValidateCheck.validateConfirmPassword(value, _passwordController.text.trim()),
-                //         prefixIcon: Images.pass)),
-                // ),
+                Hero(
+                  tag: 'user',
+                  child: Container(
+                    margin: const EdgeInsets.only(left: Dimensions.marginSizeDefault,
+                        right: Dimensions.marginSizeDefault, top: Dimensions.marginSizeSmall),
+                    child: CustomTextField(
+                      isPassword: true,required: true,
+                      hintText: getTranslated('re_enter_password', context),
+                      labelText: getTranslated('re_enter_password', context),
+                      controller: _confirmPasswordController,
+                      focusNode: _confirmPasswordFocus,
+                      inputAction: TextInputAction.done,
+                        validator: (value)=> ValidateCheck.validateConfirmPassword(value, _passwordController.text.trim()),
+                        prefixIcon: Images.pass)),
+                ),
 
-                // if(Provider.of<SplashProvider>(context, listen: false).configModel!.refEarningStatus != null && Provider.of<SplashProvider>(context, listen: false).configModel!.refEarningStatus == "1")
-                // Padding(padding: const EdgeInsets.only(top: Dimensions.paddingSizeDefault, left: Dimensions.paddingSizeDefault),
-                //   child: Row(children: [Text(getTranslated('refer_code', context)??'')])),
-                // if(Provider.of<SplashProvider>(context, listen: false).configModel!.refEarningStatus != null && Provider.of<SplashProvider>(context, listen: false).configModel!.refEarningStatus == "1")
-                // Container(
-                //   margin: const EdgeInsets.only(left: Dimensions.marginSizeDefault,
-                //     right: Dimensions.marginSizeDefault, top: Dimensions.marginSizeSmall),
-                //   child: CustomTextField(
-                //     hintText: getTranslated('enter_refer_code', context),
-                //     labelText: getTranslated('enter_refer_code', context),
-                //     controller: _referController,
-                //     focusNode: _referFocus,
-                //     inputAction: TextInputAction.done,
-                //   ),
-                // ),
+                if(Provider.of<SplashProvider>(context, listen: false).configModel!.refEarningStatus != null && Provider.of<SplashProvider>(context, listen: false).configModel!.refEarningStatus == "1")
+                Padding(padding: const EdgeInsets.only(top: Dimensions.paddingSizeDefault, left: Dimensions.paddingSizeDefault),
+                  child: Row(children: [Text(getTranslated('refer_code', context)??'')])),
+                if(Provider.of<SplashProvider>(context, listen: false).configModel!.refEarningStatus != null && Provider.of<SplashProvider>(context, listen: false).configModel!.refEarningStatus == "1")
+                Container(
+                  margin: const EdgeInsets.only(left: Dimensions.marginSizeDefault,
+                    right: Dimensions.marginSizeDefault, top: Dimensions.marginSizeSmall),
+                  child: CustomTextField(
+                    hintText: getTranslated('enter_refer_code', context),
+                    labelText: getTranslated('enter_refer_code', context),
+                    controller: _referController,
+                    focusNode: _referFocus,
+                    inputAction: TextInputAction.done,
+                  ),
+                ),
 
               Container(
                   margin: const EdgeInsets.only(left: Dimensions.marginSizeLarge, right: Dimensions.marginSizeLarge,
@@ -244,10 +246,10 @@ class SignUpWidgetState extends State<SignUpWidget> {
                     child: CustomButton(onTap: (){
                       String firstName = _firstNameController.text.trim();
                       String lastName = _lastNameController.text.trim();
-                      // String email = _emailController.text.trim();
+                      String email = _emailController.text.trim();
                       String phoneNumber = Provider.of<AuthProvider>(context, listen: false).countryDialCode +_phoneController.text.trim();
-                      // String password = _passwordController.text.trim();
-                      // String confirmPassword = _confirmPasswordController.text.trim();
+                      String password = _passwordController.text.trim();
+                      String confirmPassword = _confirmPasswordController.text.trim();
 
                       if (firstName.isEmpty) {
                         showCustomSnackBar(getTranslated('first_name_field_is_required', context), context);
@@ -257,27 +259,27 @@ class SignUpWidgetState extends State<SignUpWidget> {
                       else if (phoneNumber.isEmpty) {
                         showCustomSnackBar(getTranslated('phone_must_be_required', context), context);
 
-                      // }else if (EmailChecker.isNotValid(email)) {
-                      //   showCustomSnackBar(getTranslated('enter_valid_email_address', context), context);
+                      }else if (EmailChecker.isNotValid(email)) {
+                        showCustomSnackBar(getTranslated('enter_valid_email_address', context), context);
 
-                      // } else if (password.length < 8) {
-                      //   showCustomSnackBar(getTranslated('minimum_password_length', context), context);
-                      // } else if (password.isEmpty) {
-                      //   showCustomSnackBar(getTranslated('password_is_required', context), context);
+                      } else if (password.length < 8) {
+                        showCustomSnackBar(getTranslated('minimum_password_length', context), context);
+                      } else if (password.isEmpty) {
+                        showCustomSnackBar(getTranslated('password_is_required', context), context);
 
-                      // } else if (confirmPassword.isEmpty) {
-                      //   showCustomSnackBar(getTranslated('confirm_password_must_be_required', context), context);
+                      } else if (confirmPassword.isEmpty) {
+                        showCustomSnackBar(getTranslated('confirm_password_must_be_required', context), context);
 
-                      // } else if (password != confirmPassword) {
-                        // showCustomSnackBar(getTranslated('password_did_not_match', context), context);
+                      } else if (password != confirmPassword) {
+                        showCustomSnackBar(getTranslated('password_did_not_match', context), context);
 
                       } else {
                         register.fName = firstName;
                         register.lName = lastName;
-                        // register.email = email;
+                        register.email = email;
                         register.phone = phoneNumber;
-                        // register.password = password;
-                        // register.referCode = confirmPassword;
+                        register.password = password;
+                        register.referCode = confirmPassword;
                         Provider.of<AuthProvider>(context, listen: false).register(register, routeFun);
                       }
                     }, buttonText: getTranslated('sign_up', context)),

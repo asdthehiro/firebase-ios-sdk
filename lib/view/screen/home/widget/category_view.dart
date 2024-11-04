@@ -17,7 +17,7 @@ class CategoryView extends StatelessWidget {
         return categoryProvider.categoryList.isNotEmpty
             ? Center(
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.28,
+                  height: MediaQuery.of(context).size.height * 0.30,
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

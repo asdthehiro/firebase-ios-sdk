@@ -77,10 +77,10 @@ class SignInWidgetState extends State<SignInWidget> {
       if (email.isEmpty) {
         showCustomSnackBar(
             getTranslated('user_name_is_required', context), context);
-      } else if (password.isEmpty) {
+      } else if (widget.method == 1 && password.isEmpty) {
         showCustomSnackBar(
             getTranslated('password_is_required', context), context);
-      } else if (password.length < 8) {
+      } else if (widget.method == 1 && password.length < 8) {
         showCustomSnackBar(
             getTranslated('minimum_password_length', context), context);
       } else {

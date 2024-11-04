@@ -21,16 +21,16 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       CircleAvatar(
-          backgroundColor: Colors.grey[300],
-          radius: 30,
+          backgroundColor: Colors.grey[500],
+          radius: 40,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(50),
             child: CustomImage(
               image:
                   '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.categoryImageUrl}'
                   '/${category.icon}',
-              width: MediaQuery.of(context).size.width * 0.15,
-              height: MediaQuery.of(context).size.width * 0.15,
+              width: MediaQuery.of(context).size.width * 0.20,
+              height: MediaQuery.of(context).size.width * 0.20,
               fit: BoxFit.contain,
             ),
           )),

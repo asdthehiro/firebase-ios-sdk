@@ -211,6 +211,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future loginPhone(String phone, Function callback) async {
+   
     _isLoading = true;
     notifyListeners();
     try {

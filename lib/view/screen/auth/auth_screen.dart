@@ -189,25 +189,27 @@ class _AuthScreenState extends State<AuthScreen>
                               ),
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: 20, right: 20, top: 10, bottom: 10),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white),
-                            ),
-                            child: RadioGroup<int>.builder(
-                              direction: Axis.horizontal,
-                              groupValue: authProvider.methodIndex,
-                              onChanged: (value) =>
-                                  authProvider.updateMethodIndex(value ?? 0),
-                              items: [0, 1],
-                              itemBuilder: (item) => RadioButtonBuilder(
-                                (item == 0)
-                                    ? getTranslated('mobile', context)!
-                                    : getTranslated('EMAIL', context)!,
-                              ),
-                            ),
-                          ),
+                          authProvider.selectedIndex == 0
+                              ? Container(
+                                  margin: EdgeInsets.only(
+                                      left: 20, right: 20, top: 10, bottom: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.white),
+                                  ),
+                                  child: RadioGroup<int>.builder(
+                                    direction: Axis.horizontal,
+                                    groupValue: authProvider.methodIndex,
+                                    onChanged: (value) => authProvider
+                                        .updateMethodIndex(value ?? 0),
+                                    items: [0, 1],
+                                    itemBuilder: (item) => RadioButtonBuilder(
+                                      (item == 0)
+                                          ? getTranslated('mobile', context)!
+                                          : getTranslated('EMAIL', context)!,
+                                    ),
+                                  ),
+                                )
+                              : SizedBox.shrink(),
                           authProvider.selectedIndex == 0
                               ? SignInWidget(method: authProvider.methodIndex)
                               : const SignUpWidget(),
