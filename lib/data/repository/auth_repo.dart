@@ -75,6 +75,7 @@ class AuthRepo {
               .getGuestToken(),
         },
       );
+      
       log("res2");
       return response;
     } catch (e) {
@@ -89,7 +90,7 @@ class AuthRepo {
         AppConstants.loginUri,
         data: loginBody.toJson(),
       );
-    
+
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

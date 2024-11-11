@@ -22,7 +22,7 @@ class CategoryWidget extends StatelessWidget {
     return Column(children: [
       CircleAvatar(
           backgroundColor: Colors.grey[500],
-          radius: 40,
+          radius: 35,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: CustomImage(

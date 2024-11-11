@@ -211,7 +211,6 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future loginPhone(String phone, Function callback) async {
-   
     _isLoading = true;
     notifyListeners();
     try {
@@ -239,10 +238,13 @@ class AuthProvider with ChangeNotifier {
 
   Future verifyCode(String phone, String code, Function callback) async {
     log("1");
+    print("------------------");
+
     _isLoading = true;
     notifyListeners();
     try {
       final res = await authRepo!.verifyCode(phone, code);
+      print("------------------");
       log("2");
       log("apiResponse.response ${jsonDecode(res.body)}");
       _isLoading = false;
@@ -264,6 +266,7 @@ class AuthProvider with ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
+      print(e);
       log("5");
       callback(false, '', e.toString());
       _isLoading = false;
@@ -507,10 +510,12 @@ class AuthProvider with ChangeNotifier {
     _isPhoneNumberVerificationButtonLoading = false;
     notifyListeners();
     ResponseModel responseModel;
+    print(apiResponse.response!.statusCode);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       responseModel =
           ResponseModel(apiResponse.response!.data["message"], true);
+      print(responseModel.message);
     } else {
       String? errorMessage;
       if (apiResponse.error is String) {
@@ -675,6 +680,7 @@ class AuthProvider with ChangeNotifier {
     ApiResponse apiResponse = await authRepo!.getGuestId();
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
+   
       authRepo?.saveGuestId(apiResponse.response!.data['guest_id'].toString());
     } else {
       ApiChecker.checkApi(apiResponse);
