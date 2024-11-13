@@ -119,13 +119,14 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                 padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
                 child: CustomButton(
                   onTap: () async {
-                    if (orderProvider.addressIndex == null &&
-                        !widget.onlyDigital) {
-                      showCustomSnackBar(
-                          getTranslated('select_a_shipping_address', context),
-                          context,
-                          isToaster: true);
-                    } else if ((orderProvider.billingAddressIndex == null &&
+                    // if (orderProvider.addressIndex == null &&
+                    //     !widget.onlyDigital) {
+                    //   showCustomSnackBar(
+                    //       getTranslated('select_a_shipping_address', context),
+                    //       context,
+                    //       isToaster: true);
+                    // } else
+                    if ((orderProvider.billingAddressIndex == null &&
                             !widget.hasPhysical) ||
                         (orderProvider.billingAddressIndex == null &&
                             _billingAddress)) {
@@ -165,7 +166,9 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                               : '0';
                       String addressId = !widget.onlyDigital
                           ? profileProvider
-                              .addressList[orderProvider.addressIndex!].id
+                              .billingAddressList[
+                                  orderProvider.billingAddressIndex!]
+                              .id
                               .toString()
                           : '';
                       String billingAddressId = (_billingAddress)
@@ -199,14 +202,15 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                           !widget.onlyDigital) {
                         orderProvider.placeOrder(
                             callback: _callback,
-                            addressID: widget.onlyDigital ? '' : addressId,
+                            addressID:
+                                widget.onlyDigital ? '' : billingAddressId,
                             couponCode: couponCode,
                             couponAmount: couponCodeAmount,
                             billingAddressId: _billingAddress
                                 ? billingAddressId
                                 : widget.onlyDigital
                                     ? ''
-                                    : addressId,
+                                    : billingAddressId,
                             orderNote: orderNote);
                       } else if (orderProvider.offlineChecked) {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -287,20 +291,21 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                     padding: const EdgeInsets.all(0),
                     children: [
                       Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: Dimensions.paddingSizeDefault),
-                          child: ShippingDetailsWidget(
-                              hasPhysical: widget.hasPhysical,
-                              billingAddress: _billingAddress)),
+                        padding: const EdgeInsets.only(
+                            bottom: Dimensions.paddingSizeDefault),
+                        child: ShippingDetailsWidget(
+                            hasPhysical: widget.hasPhysical,
+                            billingAddress: _billingAddress),
+                      ),
 
-                      if (Provider.of<AuthProvider>(context, listen: false)
-                          .isLoggedIn())
-                        Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: Dimensions.paddingSizeSmall),
-                            child: CouponApplyWidget(
-                                couponController: _controller,
-                                orderAmount: _order)),
+                      // if (Provider.of<AuthProvider>(context, listen: false)
+                      //     .isLoggedIn())
+                      //   Padding(
+                      //       padding: const EdgeInsets.only(
+                      //           bottom: Dimensions.paddingSizeSmall),
+                      //       child: CouponApplyWidget(
+                      //           couponController: _controller,
+                      //           orderAmount: _order)),
 
                       Padding(
                           padding: const EdgeInsets.symmetric(
@@ -378,36 +383,36 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                         ),
                       ),
 
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                            Dimensions.paddingSizeDefault,
-                            Dimensions.paddingSizeDefault,
-                            Dimensions.paddingSizeDefault,
-                            0),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    '${getTranslated('order_note', context)}',
-                                    style: textRegular.copyWith(
-                                        fontSize: Dimensions.fontSizeLarge),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                  height: Dimensions.paddingSizeSmall),
-                              CustomTextField(
-                                hintText: getTranslated('enter_note', context),
-                                inputType: TextInputType.multiline,
-                                inputAction: TextInputAction.done,
-                                maxLines: 3,
-                                focusNode: _orderNoteNode,
-                                controller: orderProvider.orderNoteController,
-                              ),
-                            ]),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.fromLTRB(
+                      //       Dimensions.paddingSizeDefault,
+                      //       Dimensions.paddingSizeDefault,
+                      //       Dimensions.paddingSizeDefault,
+                      //       0),
+                      //   child: Column(
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       children: [
+                      //         Row(
+                      //           children: [
+                      //             Text(
+                      //               '${getTranslated('order_note', context)}',
+                      //               style: textRegular.copyWith(
+                      //                   fontSize: Dimensions.fontSizeLarge),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //         const SizedBox(
+                      //             height: Dimensions.paddingSizeSmall),
+                      //         CustomTextField(
+                      //           hintText: getTranslated('enter_note', context),
+                      //           inputType: TextInputType.multiline,
+                      //           inputAction: TextInputAction.done,
+                      //           maxLines: 3,
+                      //           focusNode: _orderNoteNode,
+                      //           controller: orderProvider.orderNoteController,
+                      //         ),
+                      //       ]),
+                      // ),
                     ]),
               ),
             ],

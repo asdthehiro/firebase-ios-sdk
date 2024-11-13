@@ -63,7 +63,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   bool _updateAddress = true;
   Address? _address;
 
-  String zip = '', country = '';
+  String zip = '', country = 'Somalia';
 
   @override
   void initState() {
@@ -387,184 +387,197 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                       //   ),
                       // ),
 
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(
+                      //       vertical: Dimensions.paddingSizeSmall),
+                      //   child: SizedBox(
+                      //     height: 50,
+                      //     child: Row(
+                      //       children: <Widget>[
+                      //         Row(children: [
+                      //           Radio<Address>(
+                      //             value: Address.shipping,
+                      //             groupValue: _address,
+                      //             onChanged: (Address? value) {
+                      //               setState(() {
+                      //                 _address = value;
+                      //               });
+                      //             },
+                      //           ),
+                      //           Text(getTranslated(
+                      //               'shipping_address', context)!),
+                      //         ]),
+                      //         Row(
+                      //           children: [
+                      //             Radio<Address>(
+                      //               value: Address.billing,
+                      //               groupValue: _address,
+                      //               onChanged: (Address? value) {
+                      //                 setState(() {
+                      //                   _address = value;
+                      //                 });
+                      //               },
+                      //             ),
+                      //             Text(getTranslated(
+                      //                 'billing_address', context)!),
+                      //           ],
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: Dimensions.paddingSizeSmall),
-                        child: SizedBox(
-                          height: 50,
-                          child: Row(
-                            children: <Widget>[
-                              Row(children: [
-                                Radio<Address>(
-                                  value: Address.shipping,
-                                  groupValue: _address,
-                                  onChanged: (Address? value) {
-                                    setState(() {
-                                      _address = value;
-                                    });
-                                  },
-                                ),
-                                Text(getTranslated(
-                                    'shipping_address', context)!),
-                              ]),
-                              Row(
-                                children: [
-                                  Radio<Address>(
-                                    value: Address.billing,
-                                    groupValue: _address,
-                                    onChanged: (Address? value) {
-                                      setState(() {
-                                        _address = value;
-                                      });
-                                    },
-                                  ),
-                                  Text(getTranslated(
-                                      'billing_address', context)!),
-                                ],
-                              ),
-                            ],
-                          ),
+                        child: CustomTextField(
+                          labelText: getTranslated('delivery_address', context),
+                          hintText: getTranslated('usa', context),
+                          inputType: TextInputType.streetAddress,
+                          inputAction: TextInputAction.next,
+                          focusNode: _addressNode,
+                          prefixIcon: Images.address,
+                          nextFocus: _cityNode,
+                          controller: locationProvider.locationController,
                         ),
-                      ),
-
-                      CustomTextField(
-                        labelText: getTranslated('delivery_address', context),
-                        hintText: getTranslated('usa', context),
-                        inputType: TextInputType.streetAddress,
-                        inputAction: TextInputAction.next,
-                        focusNode: _addressNode,
-                        prefixIcon: Images.address,
-                        nextFocus: _cityNode,
-                        controller: locationProvider.locationController,
                       ),
                       const SizedBox(
                           height: Dimensions.paddingSizeDefaultAddress),
 
-                      SizedBox(
-                        height: 50,
-                        child: Consumer<LocationProvider>(
-                            builder: (context, locationProvider, _) {
-                          return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Provider.of<SplashProvider>(context,
-                                                listen: false)
-                                            .configModel!
-                                            .deliveryCountryRestriction ==
-                                        1
-                                    ? DropdownSearch<String>(
-                                        popupProps: const PopupProps.menu(
-                                            showSelectedItems: true),
-                                        items: (filter, loadProps) {
-                                          return locationProvider
-                                              .restrictedCountryList;
-                                        },
-                                        decoratorProps: DropDownDecoratorProps(
-                                          decoration: InputDecoration(
-                                            prefixIconConstraints:
-                                                const BoxConstraints(
-                                                    minHeight: 40,
-                                                    maxWidth: 40),
-                                            prefixIcon: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: Dimensions
-                                                          .paddingSizeSmall),
-                                              child: SizedBox(
-                                                  width: 20,
-                                                  height: 20,
-                                                  child: Image.asset(
-                                                    Images.country,
-                                                    color: Theme.of(context)
-                                                        .primaryColor
-                                                        .withOpacity(.6),
-                                                  )),
-                                            ),
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: Dimensions
-                                                        .paddingSizeDefault),
-                                            labelText: "country",
-                                            alignLabelWithHint: true,
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                borderSide: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .hintColor,
-                                                  width: 0.5,
-                                                )),
-                                            focusedBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                borderSide: BorderSide(
-                                                    color: Theme.of(context)
-                                                        .hintColor,
-                                                    width: 0.5)),
-                                            enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                borderSide: BorderSide(
-                                                    color: Theme.of(context)
-                                                        .hintColor,
-                                                    width: 0.5)),
-                                          ),
-                                        ),
-                                        onChanged: (value) {
-                                          _countryCodeController.text = value!;
-                                        },
-                                      )
-                                    : Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal:
-                                                Dimensions.paddingSizeSmall,
-                                            vertical:
-                                                Dimensions.paddingSizeSmall),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Theme.of(context)
-                                                    .hintColor
-                                                    .withOpacity(.25)),
-                                            borderRadius: BorderRadius.circular(
-                                                Dimensions
-                                                    .paddingSizeExtraSmall)),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: Dimensions
-                                                          .paddingSizeSmall),
-                                              child: SizedBox(
-                                                  width: 20,
-                                                  height: 20,
-                                                  child: Image.asset(
-                                                    Images.country,
-                                                    color: Theme.of(context)
-                                                        .primaryColor
-                                                        .withOpacity(.6),
-                                                  )),
-                                            ),
-                                            Expanded(
-                                              child: CountryPickerDropdown(
-                                                initialValue: country,
-                                                itemBuilder:
-                                                    _buildDropdownItemForCountry,
-                                                onValuePicked:
-                                                    (Country? country) {
-                                                  _countryCodeController.text =
-                                                      country!.name ?? '';
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                // CountrySearchDialog(),
-                              ]);
-                        }),
+                      // SizedBox(
+                      //   height: 50,
+                      //   child: Consumer<LocationProvider>(
+                      //       builder: (context, locationProvider, _) {
+                      //     return Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Provider.of<SplashProvider>(context,
+                      //                           listen: false)
+                      //                       .configModel!
+                      //                       .deliveryCountryRestriction ==
+                      //                   1
+                      //               ? DropdownSearch<String>(
+                      //                   popupProps: const PopupProps.menu(
+                      //                       showSelectedItems: true),
+                      //                   items: (filter, loadProps) {
+                      //                     return locationProvider
+                      //                         .restrictedCountryList;
+                      //                   },
+                      //                   decoratorProps: DropDownDecoratorProps(
+                      //                     decoration: InputDecoration(
+                      //                       prefixIconConstraints:
+                      //                           const BoxConstraints(
+                      //                               minHeight: 40,
+                      //                               maxWidth: 40),
+                      //                       prefixIcon: Padding(
+                      //                         padding:
+                      //                             const EdgeInsets.symmetric(
+                      //                                 horizontal: Dimensions
+                      //                                     .paddingSizeSmall),
+                      //                         child: SizedBox(
+                      //                             width: 20,
+                      //                             height: 20,
+                      //                             child: Image.asset(
+                      //                               Images.country,
+                      //                               color: Theme.of(context)
+                      //                                   .primaryColor
+                      //                                   .withOpacity(.6),
+                      //                             )),
+                      //                       ),
+                      //                       contentPadding:
+                      //                           const EdgeInsets.symmetric(
+                      //                               horizontal: Dimensions
+                      //                                   .paddingSizeDefault),
+                      //                       labelText: "country",
+                      //                       alignLabelWithHint: true,
+                      //                       border: OutlineInputBorder(
+                      //                           borderRadius:
+                      //                               BorderRadius.circular(8),
+                      //                           borderSide: BorderSide(
+                      //                             color: Theme.of(context)
+                      //                                 .hintColor,
+                      //                             width: 0.5,
+                      //                           )),
+                      //                       focusedBorder: OutlineInputBorder(
+                      //                           borderRadius:
+                      //                               BorderRadius.circular(8),
+                      //                           borderSide: BorderSide(
+                      //                               color: Theme.of(context)
+                      //                                   .hintColor,
+                      //                               width: 0.5)),
+                      //                       enabledBorder: OutlineInputBorder(
+                      //                           borderRadius:
+                      //                               BorderRadius.circular(8),
+                      //                           borderSide: BorderSide(
+                      //                               color: Theme.of(context)
+                      //                                   .hintColor,
+                      //                               width: 0.5)),
+                      //                     ),
+                      //                   ),
+                      //                   onChanged: (value) {
+                      //                     _countryCodeController.text = value!;
+                      //                   },
+                      //                 )
+                      //               : Container(
+                      //                   padding: const EdgeInsets.symmetric(
+                      //                       horizontal:
+                      //                           Dimensions.paddingSizeSmall,
+                      //                       vertical:
+                      //                           Dimensions.paddingSizeSmall),
+                      //                   decoration: BoxDecoration(
+                      //                       border: Border.all(
+                      //                           color: Theme.of(context)
+                      //                               .hintColor
+                      //                               .withOpacity(.25)),
+                      //                       borderRadius: BorderRadius.circular(
+                      //                           Dimensions
+                      //                               .paddingSizeExtraSmall)),
+                      //                   child: Row(
+                      //                     children: [
+                      //                       Padding(
+                      //                         padding:
+                      //                             const EdgeInsets.symmetric(
+                      //                                 horizontal: Dimensions
+                      //                                     .paddingSizeSmall),
+                      //                         child: SizedBox(
+                      //                             width: 20,
+                      //                             height: 20,
+                      //                             child: Image.asset(
+                      //                               Images.country,
+                      //                               color: Theme.of(context)
+                      //                                   .primaryColor
+                      //                                   .withOpacity(.6),
+                      //                             )),
+                      //                       ),
+                      //                       Expanded(
+                      //                         child: CountryPickerDropdown(
+                      //                           initialValue: country,
+                      //                           itemBuilder:
+                      //                               _buildDropdownItemForCountry,
+                      //                           onValuePicked:
+                      //                               (Country? country) {
+                      //                             _countryCodeController.text =
+                      //                                 country!.name ?? '';
+                      //                           },
+                      //                         ),
+                      //                       ),
+                      //                     ],
+                      //                   ),
+                      //                 ),
+                      //           // CountrySearchDialog(),
+                      //         ]);
+                      //   }),
+                      // ),
+                      CustomTextField(
+                        labelText: getTranslated('country', context),
+                        hintText: getTranslated('country', context),
+                        inputType: TextInputType.streetAddress,
+                        inputAction: TextInputAction.next,
+                        readOnly: true,
+                        nextFocus: _cityNode,
+                        prefixIcon: Images.country,
+                        controller: _countryCodeController,
                       ),
-
                       const SizedBox(
                           height: Dimensions.paddingSizeDefaultAddress),
 
@@ -578,69 +591,69 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                         prefixIcon: Images.city,
                         controller: _cityController,
                       ),
-                      const SizedBox(
-                          height: Dimensions.paddingSizeDefaultAddress),
+                      // const SizedBox(
+                      //     height: Dimensions.paddingSizeDefaultAddress),
 
-                      Provider.of<SplashProvider>(context, listen: false)
-                                  .configModel!
-                                  .deliveryZipCodeAreaRestriction ==
-                              0
-                          ? CustomTextField(
-                              labelText: getTranslated('zip', context),
-                              hintText: getTranslated('zip', context),
-                              inputAction: TextInputAction.done,
-                              focusNode: _zipNode,
-                              prefixIcon: Images.city,
-                              controller: _zipCodeController,
-                            )
-                          : SizedBox(
-                              height: 50,
-                              child: DropdownSearch<RestrictedZipModel>(
-                                items: (filter, loadProps) =>
-                                    locationProvider.restrictedZipList,
-                                itemAsString: (RestrictedZipModel u) =>
-                                    u.zipcode!,
-                                onChanged: (value) {
-                                  _zipCodeController.text = value!.zipcode!;
-                                },
-                                decoratorProps: DropDownDecoratorProps(
-                                  decoration: InputDecoration(
-                                    labelText: "zip",
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal:
-                                            Dimensions.paddingSizeDefault),
-                                    prefixIconConstraints: const BoxConstraints(
-                                        minHeight: 40, maxWidth: 40),
-                                    prefixIcon: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal:
-                                              Dimensions.paddingSizeSmall),
-                                      child: SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child: Image.asset(Images.city)),
-                                    ),
-                                    alignLabelWithHint: true,
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: BorderSide(
-                                          color: Theme.of(context).hintColor,
-                                          width: 0.5,
-                                        )),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: BorderSide(
-                                            color: Theme.of(context).hintColor,
-                                            width: 0.5)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: BorderSide(
-                                            color: Theme.of(context).hintColor,
-                                            width: 0.5)),
-                                  ),
-                                ),
-                              ),
-                            ),
+                      // Provider.of<SplashProvider>(context, listen: false)
+                      //             .configModel!
+                      //             .deliveryZipCodeAreaRestriction ==
+                      //         0
+                      //     ? CustomTextField(
+                      //         labelText: getTranslated('zip', context),
+                      //         hintText: getTranslated('zip', context),
+                      //         inputAction: TextInputAction.done,
+                      //         focusNode: _zipNode,
+                      //         prefixIcon: Images.city,
+                      //         controller: _zipCodeController,
+                      //       )
+                      //     : SizedBox(
+                      //         height: 50,
+                      //         child: DropdownSearch<RestrictedZipModel>(
+                      //           items: (filter, loadProps) =>
+                      //               locationProvider.restrictedZipList,
+                      //           itemAsString: (RestrictedZipModel u) =>
+                      //               u.zipcode!,
+                      //           onChanged: (value) {
+                      //             _zipCodeController.text = value!.zipcode!;
+                      //           },
+                      //           decoratorProps: DropDownDecoratorProps(
+                      //             decoration: InputDecoration(
+                      //               labelText: "zip",
+                      //               contentPadding: const EdgeInsets.symmetric(
+                      //                   horizontal:
+                      //                       Dimensions.paddingSizeDefault),
+                      //               prefixIconConstraints: const BoxConstraints(
+                      //                   minHeight: 40, maxWidth: 40),
+                      //               prefixIcon: Padding(
+                      //                 padding: const EdgeInsets.symmetric(
+                      //                     horizontal:
+                      //                         Dimensions.paddingSizeSmall),
+                      //                 child: SizedBox(
+                      //                     width: 20,
+                      //                     height: 20,
+                      //                     child: Image.asset(Images.city)),
+                      //               ),
+                      //               alignLabelWithHint: true,
+                      //               border: OutlineInputBorder(
+                      //                   borderRadius: BorderRadius.circular(8),
+                      //                   borderSide: BorderSide(
+                      //                     color: Theme.of(context).hintColor,
+                      //                     width: 0.5,
+                      //                   )),
+                      //               focusedBorder: OutlineInputBorder(
+                      //                   borderRadius: BorderRadius.circular(8),
+                      //                   borderSide: BorderSide(
+                      //                       color: Theme.of(context).hintColor,
+                      //                       width: 0.5)),
+                      //               enabledBorder: OutlineInputBorder(
+                      //                   borderRadius: BorderRadius.circular(8),
+                      //                   borderSide: BorderSide(
+                      //                       color: Theme.of(context).hintColor,
+                      //                       width: 0.5)),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
                       const SizedBox(
                           height: Dimensions.paddingSizeDefaultAddress),
 
@@ -670,7 +683,8 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                               .text
                                               .trim(),
                                           city: _cityController.text,
-                                          zip: _zipCodeController.text,
+                                          zip: "09010",
+                                          // _zipCodeController.text,
                                           country: _countryCodeController.text,
                                           guestId: Provider.of<AuthProvider>(
                                                   context,
@@ -731,13 +745,15 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                           showCustomSnackBar(
                                               '${getTranslated('city_is_required', context)}',
                                               context);
-                                        } else if (_zipCodeController.text
-                                            .trim()
-                                            .isEmpty) {
-                                          showCustomSnackBar(
-                                              '${getTranslated('zip_code_is_required', context)}',
-                                              context);
-                                        } else if (_contactPersonEmailController
+                                        } 
+                                        // else if (_zipCodeController.text
+                                        //     .trim()
+                                        //     .isEmpty) {
+                                        //   showCustomSnackBar(
+                                        //       '${getTranslated('zip_code_is_required', context)}',
+                                        //       context);
+                                        // } 
+                                        else if (_contactPersonEmailController
                                                 .text
                                                 .trim()
                                                 .isEmpty &&

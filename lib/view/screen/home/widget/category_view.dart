@@ -17,12 +17,12 @@ class CategoryView extends StatelessWidget {
         return categoryProvider.categoryList.isNotEmpty
             ? Center(
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.33,
+                  height: MediaQuery.of(context).size.height * 0.30,
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 1.3,
-                      mainAxisSpacing: 10,
+                      // mainAxisSpacing: 5,
                       crossAxisSpacing: 5,
                     ),
                     scrollDirection: Axis.horizontal,
