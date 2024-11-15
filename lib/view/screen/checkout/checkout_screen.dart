@@ -17,9 +17,7 @@ import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_app_bar.dart'
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_button.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/order_place_success_dialog.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/show_custom_snakbar.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_textfield.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/checkout/widget/choose_payment_section.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/checkout/widget/coupon_apply_widget.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/checkout/widget/shipping_details_widget.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/checkout/widget/wallet_payment.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/dashboard/dashboard_screen.dart';
@@ -180,6 +178,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                           : '';
 
                       if (orderProvider.paymentMethodIndex != -1) {
+                        orderProvider.payerPhoneController.clear();
                         orderProvider.digitalPayment(
                           orderNote: orderNote,
                           customerId:
@@ -195,8 +194,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                           couponDiscount: couponCodeAmount,
                           paymentMethod:
                               orderProvider.selectedDigitalPaymentMethodName,
-                          payerPhone:
-                              profileProvider.billingAddressList[0].phone,
+                          payerPhone: orderProvider.phone,
                         );
                       } else if (orderProvider.codChecked &&
                           !widget.onlyDigital) {

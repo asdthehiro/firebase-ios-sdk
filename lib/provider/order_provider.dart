@@ -26,6 +26,9 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utill/app_constants.dart';
+import '../utill/images.dart';
+import '../view/basewidget/custom_button.dart';
+import '../view/basewidget/custom_textfield.dart';
 
 class OrderProvider with ChangeNotifier {
   final OrderRepo? orderRepo;
@@ -58,7 +61,8 @@ class OrderProvider with ChangeNotifier {
   RefundInfoModel? get refundInfoModel => _refundInfoModel;
   RefundResultModel? _refundResultModel;
   RefundResultModel? get refundResultModel => _refundResultModel;
-
+  TextEditingController payerPhoneController = TextEditingController();
+  String phone = "";
   OrderModel? orderModel;
   OrderModel? deliveredOrderModel;
   Future<void> getOrderList(int offset, String status, {String? type}) async {
@@ -314,12 +318,59 @@ class OrderProvider with ChangeNotifier {
 
   String selectedDigitalPaymentMethodName = '';
 
-  void setDigitalPaymentMethodName(int index, String name) {
+  void setDigitalPaymentMethodName(
+      int index, String name, BuildContext context) {
     _paymentMethodIndex = index;
     selectedDigitalPaymentMethodName = name;
     codChecked = false;
     walletChecked = false;
     offlineChecked = false;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.25,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Text("Enter Your Phone Number"),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  child: SizedBox(
+                    child: CustomTextField(
+                      prefixIcon: Images.callIcon,
+                      labelText: getTranslated('phone', context),
+                      hintText: getTranslated('enter_mobile_number', context),
+                      inputType: TextInputType.phone,
+                      controller: payerPhoneController,
+                      borderColor: Colors.green,
+                      showBorder: true,
+                      inputAction: TextInputAction.next,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 100),
+                  child: CustomButton(
+                    buttonText: "Enter",
+                    onTap: () {
+                      phone = payerPhoneController.text;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
     notifyListeners();
   }
 

@@ -124,7 +124,7 @@ class ShippingDetailsWidget extends StatelessWidget {
 
                                   Column(children: [
                                     AddressInfoItem(icon: Images.user, title: profileProvider.billingAddressList[shipping.billingAddressIndex!].contactPersonName??''),
-                                    AddressInfoItem(icon: Images.callIcon, title: profileProvider.billingAddressList[shipping.billingAddressIndex!].phone??''),
+                                    AddressInfoItem(icon: Images.callIcon, title: (profileProvider.billingAddressList[shipping.billingAddressIndex!].phone!=null)? profileProvider.billingAddressList[shipping.billingAddressIndex!].phone!.replaceFirst("+252", ""):''),
                                     AddressInfoItem(icon: Images.address, title: profileProvider.billingAddressList[shipping.billingAddressIndex!].address??''),
 
                                   ],

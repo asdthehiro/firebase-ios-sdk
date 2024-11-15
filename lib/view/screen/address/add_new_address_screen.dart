@@ -1,18 +1,12 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_currency_pickers/country.dart';
-import 'package:country_currency_pickers/country_picker_dropdown.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sixvalley_ecommerce/data/model/response/address_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/restricted_zip_model.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/velidate_check.dart';
 import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
 import 'package:flutter_sixvalley_ecommerce/main.dart';
 import 'package:flutter_sixvalley_ecommerce/provider/auth_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/provider/location_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/provider/order_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/provider/profile_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_button.dart';
@@ -74,7 +68,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
       _address = Address.shipping;
     }
 
-    country = 'BD';
+    country = 'Somalia';
     _countryCodeController.text = country;
     Provider.of<LocationProvider>(context, listen: false)
         .initializeAllAddressType(context: context);
@@ -170,25 +164,37 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                       Consumer<AuthProvider>(
                           builder: (context, authProvider, _) {
                         return CustomTextField(
+                          prefixIcon: Images.callIcon,
                           labelText: getTranslated('phone', context),
                           hintText:
                               getTranslated('enter_mobile_number', context),
+                          inputType: TextInputType.phone,
                           controller: _contactPersonNumberController,
                           focusNode: _numberNode,
                           nextFocus: _emailNode,
-                          showCodePicker: true,
-                          countryDialCode: authProvider.countryDialCode,
-                          onCountryChanged: (CountryCode countryCode) {
-                            authProvider.countryDialCode =
-                                countryCode.dialCode!;
-                            authProvider.setCountryCode(countryCode.dialCode!);
-                          },
-                          isAmount: true,
-                          validator: (value) => ValidateCheck.validateEmptyText(
-                              value, "phone_must_be_required"),
                           inputAction: TextInputAction.next,
-                          inputType: TextInputType.phone,
                         );
+                        // CustomTextField(
+                        //   labelText: getTranslated('phone', context),
+                        //   hintText:
+                        //       getTranslated('enter_mobile_number', context),
+                        //   controller: _contactPersonNumberController,
+                        //   focusNode: _numberNode,
+                        //   nextFocus: _emailNode,
+                        //   showCodePicker: true,
+                        //   countryDialCode: authProvider.countryDialCode,
+                        //   onCountryChanged: (CountryCode countryCode) {
+                        //     // authProvider.countryDialCode =
+                        //     //     countryCode.dialCode!;
+                        //     // authProvider.setCountryCode(countryCode.dialCode!);
+                        //   },
+                        //   isAmount: true,
+                        //   validator: (value) => ValidateCheck.validateEmptyText(
+                        //       value, "phone_must_be_required"),
+                        //   inputAction: TextInputAction.next,
+                        //   inputType: TextInputType.phone,
+
+                        // );
                       }),
                       const SizedBox(
                           height: Dimensions.paddingSizeDefaultAddress),
@@ -745,14 +751,14 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                           showCustomSnackBar(
                                               '${getTranslated('city_is_required', context)}',
                                               context);
-                                        } 
+                                        }
                                         // else if (_zipCodeController.text
                                         //     .trim()
                                         //     .isEmpty) {
                                         //   showCustomSnackBar(
                                         //       '${getTranslated('zip_code_is_required', context)}',
                                         //       context);
-                                        // } 
+                                        // }
                                         else if (_contactPersonEmailController
                                                 .text
                                                 .trim()

@@ -12,39 +12,62 @@ class CustomCheckBox extends StatelessWidget {
   final String? icon;
   final String name;
   final String title;
-  const CustomCheckBox({super.key,  required this.index, this.isDigital =  false, this.icon, required this.name, required this.title});
+  const CustomCheckBox(
+      {super.key,
+      required this.index,
+      this.isDigital = false,
+      this.icon,
+      required this.name,
+      required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<OrderProvider>(
       builder: (context, order, child) {
         return InkWell(
-          onTap: () => order.setDigitalPaymentMethodName(index, name),
+          onTap: () {
+            order.setDigitalPaymentMethodName(index, name, context);
+          },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Dimensions.paddingSizeSmall),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall),),
+                borderRadius:
+                    BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
+              ),
               child: Row(children: [
                 Theme(
                   data: Theme.of(context).copyWith(
-                    unselectedWidgetColor: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor.withOpacity(.5) : Theme.of(context).primaryColor.withOpacity(.25),
+                    unselectedWidgetColor:
+                        Provider.of<ThemeProvider>(context, listen: false)
+                                .darkTheme
+                            ? Theme.of(context).hintColor.withOpacity(.5)
+                            : Theme.of(context).primaryColor.withOpacity(.25),
                   ),
                   child: Checkbox(
                     visualDensity: VisualDensity.compact,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraLarge)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            Dimensions.paddingSizeExtraLarge)),
                     value: order.paymentMethodIndex == index,
                     activeColor: Colors.green,
-                    onChanged: (bool? isChecked) => order.setDigitalPaymentMethodName(index, name),
+                    onChanged: (bool? isChecked) =>
+                        order.setDigitalPaymentMethodName(index, name, context),
                   ),
                 ),
-                SizedBox(width: 40, child: Padding(
-                  padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                  child: CustomImage(image : icon!),
-                )),
-                Text(title, style: textRegular.copyWith(),),
-
+                SizedBox(
+                    width: 40,
+                    child: Padding(
+                      padding: const EdgeInsets.all(
+                          Dimensions.paddingSizeExtraSmall),
+                      child: CustomImage(image: icon!),
+                    )),
+                Text(
+                  title,
+                  style: textRegular.copyWith(),
+                ),
               ]),
             ),
           ),

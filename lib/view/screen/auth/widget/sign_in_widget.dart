@@ -175,18 +175,22 @@ class SignInWidgetState extends State<SignInWidget> {
               // const SizedBox(height: Dimensions.paddingSizeDefault,),
 
               (widget.method == 1)
-                  ? CustomTextField(
-                      showLabelText: true,
-                      required: true,
-                      labelText: getTranslated('password', context),
-                      hintText: getTranslated('enter_your_password', context),
-                      inputAction: TextInputAction.done,
-                      isPassword: true,
-                      // prefixIcon: Images.pass,
-                      focusNode: _passNode,
-                      controller: _passwordController,
-                      validator: (value) => ValidateCheck.validateEmptyText(
-                          value, 'ENTER_YOUR_PASSWORD'))
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: CustomTextField(
+                          showLabelText: true,
+                          required: true,
+                          labelText: getTranslated('password', context),
+                          hintText:
+                              getTranslated('enter_your_password', context),
+                          inputAction: TextInputAction.done,
+                          isPassword: true,
+                          // prefixIcon: Images.pass,
+                          focusNode: _passNode,
+                          controller: _passwordController,
+                          validator: (value) => ValidateCheck.validateEmptyText(
+                              value, 'ENTER_YOUR_PASSWORD')),
+                    )
                   : SizedBox.shrink(),
 
               const SizedBox(height: Dimensions.paddingSizeExtraLarge),

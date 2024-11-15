@@ -6,10 +6,7 @@ import 'package:flutter_sixvalley_ecommerce/provider/theme_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_expanded_app_bar.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/select_currency_bottom_sheet.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/select_language_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatelessWidget {

@@ -153,26 +153,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   : widget.inputFormatters,
           decoration: InputDecoration(
               alignLabelWithHint: true,
-              border: InputBorder.none,
-              // border: OutlineInputBorder(
-              //   borderRadius: BorderRadius.circular(8),
-              //   borderSide: BorderSide(
-              //     color: Colors.white,
-              //     width: widget.showBorder ? 0 : .75,
-              //   ),
-              // ),
-              // focusedBorder: OutlineInputBorder(
-              //     borderRadius: BorderRadius.circular(8),
-              //     borderSide: BorderSide(
-              //       color: Theme.of(context).primaryColor, //widget.borderColor,
-              //       width: widget.showBorder ? 0 : .75,
-              //     )),
-              // enabledBorder: OutlineInputBorder(
-              //     borderRadius: BorderRadius.circular(8),
-              //     borderSide: BorderSide(
-              //       color: widget.borderColor,
-              //       width: widget.showBorder ? 0 : .75,
-              //     )),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                  width: widget.showBorder ? 0 : .75,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor, //widget.borderColor,
+                    width: widget.showBorder ? 0 : .75,
+                  )),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                    color: widget.borderColor,
+                    width: widget.showBorder ? 0 : .75,
+                  )),
               fillColor: Theme.of(context).cardColor,
               floatingLabelStyle: widget.showLabelText
                   ? textRegular.copyWith(
