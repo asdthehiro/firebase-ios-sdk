@@ -26,50 +26,51 @@ class CustomCheckBox extends StatelessWidget {
       builder: (context, order, child) {
         return InkWell(
           onTap: () {
-            order.setDigitalPaymentMethodName(index, name, context);
+            (index == 2)
+                ? order.setOfflineChecked('cod', index, name)
+                : order.setDigitalPaymentMethodName(index, name, context);
           },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: Dimensions.paddingSizeSmall),
-              decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
-              ),
-              child: Row(children: [
-                Theme(
-                  data: Theme.of(context).copyWith(
-                    unselectedWidgetColor:
-                        Provider.of<ThemeProvider>(context, listen: false)
-                                .darkTheme
-                            ? Theme.of(context).hintColor.withOpacity(.5)
-                            : Theme.of(context).primaryColor.withOpacity(.25),
-                  ),
-                  child: Checkbox(
-                    visualDensity: VisualDensity.compact,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            Dimensions.paddingSizeExtraLarge)),
-                    value: order.paymentMethodIndex == index,
-                    activeColor: Colors.green,
-                    onChanged: (bool? isChecked) =>
-                        order.setDigitalPaymentMethodName(index, name, context),
-                  ),
-                ),
-                SizedBox(
-                    width: 40,
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                          Dimensions.paddingSizeExtraSmall),
-                      child: CustomImage(image: icon!),
-                    )),
-                Text(
-                  title,
-                  style: textRegular.copyWith(),
-                ),
-              ]),
+          child: Container(
+            margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
             ),
+            child: Row(children: [
+              Theme(
+                data: Theme.of(context).copyWith(
+                  unselectedWidgetColor:
+                      Provider.of<ThemeProvider>(context, listen: false)
+                              .darkTheme
+                          ? Theme.of(context).hintColor.withOpacity(.5)
+                          : Theme.of(context).primaryColor.withOpacity(.25),
+                ),
+                child: Checkbox(
+                  visualDensity: VisualDensity.compact,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          Dimensions.paddingSizeExtraLarge)),
+                  value: order.paymentMethodIndex == index,
+                  activeColor: Colors.green,
+                  onChanged: (bool? isChecked) {
+                    print(order.paymentMethodIndex);
+                    (index == 2)
+                        ? order.setOfflineChecked('cod', index, name)
+                        : order.setDigitalPaymentMethodName(
+                            index, name, context);
+                  },
+                ),
+              ),
+              SizedBox(
+                  width: (index == 2) ? 25 : 40,
+                  child: (index == 2)
+                      ? Image.asset(icon!)
+                      : CustomImage(image: icon!)),
+              Text(
+                title,
+                style: textRegular.copyWith(),
+              ),
+            ]),
           ),
         );
       },

@@ -294,23 +294,26 @@ class OrderProvider with ChangeNotifier {
   bool codChecked = false;
   bool walletChecked = false;
 
-  void setOfflineChecked(String type) {
+  void setOfflineChecked(String type, int index,String name) {
+    _paymentMethodIndex = index;
+    selectedDigitalPaymentMethodName = name;
     if (type == 'offline') {
       offlineChecked = !offlineChecked;
       codChecked = false;
       walletChecked = false;
-      _paymentMethodIndex = -1;
+     
       setOfflinePaymentMethodSelectedIndex(0);
     } else if (type == 'cod') {
       codChecked = !codChecked;
       offlineChecked = false;
       walletChecked = false;
-      _paymentMethodIndex = -1;
+    
+    
     } else if (type == 'wallet') {
       walletChecked = !walletChecked;
       offlineChecked = false;
       codChecked = false;
-      _paymentMethodIndex = -1;
+      
     }
 
     notifyListeners();

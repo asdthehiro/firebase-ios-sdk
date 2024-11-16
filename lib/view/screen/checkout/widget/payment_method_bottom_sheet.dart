@@ -12,7 +12,6 @@ import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_button.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/checkout/widget/custom_check_box.dart';
 import 'package:provider/provider.dart';
 
-
 class PaymentMethodBottomSheet extends StatefulWidget {
   final bool onlyDigital;
   const PaymentMethodBottomSheet({
@@ -33,14 +32,17 @@ class PaymentMethodBottomSheetState extends State<PaymentMethodBottomSheet> {
         constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.5,
             minHeight: MediaQuery.of(context).size.height * 0.1),
-        padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
+        padding: const EdgeInsets.only(
+          left: Dimensions.paddingSizeDefault,
+          right: Dimensions.paddingSizeDefault,
+        ),
         decoration: BoxDecoration(
             color: Theme.of(context).highlightColor,
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         child: SingleChildScrollView(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const SizedBox(height: Dimensions.paddingSizeSmall),
+            // const SizedBox(height: Dimensions.paddingSizeSmall),
             // Padding(
             //     padding: const EdgeInsets.only(
             //         bottom: Dimensions.paddingSizeDefault),
@@ -82,32 +84,32 @@ class PaymentMethodBottomSheetState extends State<PaymentMethodBottomSheet> {
               children: [
                 Row(
                   children: [
-                    if (Provider.of<SplashProvider>(context, listen: false)
-                                .configModel !=
-                            null &&
-                        Provider.of<SplashProvider>(context, listen: false)
-                            .configModel!
-                            .cashOnDelivery! &&
-                        !widget.onlyDigital)
-                      Expanded(
-                          child: CustomButton(
-                              isBorder: true,
-                              leftIcon: Images.cod,
-                              backgroundColor: orderProvider.codChecked
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).cardColor,
-                              textColor: orderProvider.codChecked
-                                  ? Colors.white
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.color,
-                              fontSize: Dimensions.fontSizeSmall,
-                              onTap: () =>
-                                  orderProvider.setOfflineChecked('cod'),
-                              buttonText:
-                                  '${getTranslated('cash_on_delivery', context)}')),
-                    const SizedBox(width: Dimensions.paddingSizeDefault),
+                    // if (Provider.of<SplashProvider>(context, listen: false)
+                    //             .configModel !=
+                    //         null &&
+                    //     Provider.of<SplashProvider>(context, listen: false)
+                    //         .configModel!
+                    //         .cashOnDelivery! &&
+                    //     !widget.onlyDigital)
+                    // Expanded(
+                    //     child: CustomButton(
+                    //         isBorder: true,
+                    //         leftIcon: Images.cod,
+                    //         backgroundColor: orderProvider.codChecked
+                    //             ? Theme.of(context).primaryColor
+                    //             : Theme.of(context).cardColor,
+                    //         textColor: orderProvider.codChecked
+                    //             ? Colors.white
+                    //             : Theme.of(context)
+                    //                 .textTheme
+                    //                 .bodyLarge
+                    //                 ?.color,
+                    //         fontSize: Dimensions.fontSizeSmall,
+                    //         onTap: () =>
+                    //             orderProvider.setOfflineChecked('cod'),
+                    //         buttonText:
+                    //             '${getTranslated('cash_on_delivery', context)}')),
+                    // const SizedBox(width: Dimensions.paddingSizeDefault),
                     if (Provider.of<SplashProvider>(context, listen: false)
                                 .configModel !=
                             null &&
@@ -120,7 +122,7 @@ class PaymentMethodBottomSheetState extends State<PaymentMethodBottomSheet> {
                       Expanded(
                           child: CustomButton(
                               onTap: () =>
-                                  orderProvider.setOfflineChecked('wallet'),
+                                  orderProvider.setOfflineChecked('wallet',2,""),
                               isBorder: true,
                               leftIcon: Images.payWallet,
                               backgroundColor: orderProvider.walletChecked
@@ -173,29 +175,60 @@ class PaymentMethodBottomSheetState extends State<PaymentMethodBottomSheet> {
                         .digitalPayment!)
                   Consumer<SplashProvider>(
                       builder: (context, configProvider, _) {
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount:
-                          configProvider.configModel?.paymentMethods?.length ??
-                              0,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return CustomCheckBox(
-                          index: index,
+                    return Row(
+                      children: [
+                        CustomCheckBox(
+                          index: 0,
                           icon:
-                              '${configProvider.configModel?.paymentMethodImagePath}/${configProvider.configModel?.paymentMethods?[index].additionalDatas?.gatewayImage ?? ''}',
+                              '${configProvider.configModel?.paymentMethodImagePath}/${configProvider.configModel?.paymentMethods?[0].additionalDatas?.gatewayImage ?? ''}',
                           name: configProvider
-                              .configModel!.paymentMethods![index].keyName!,
-                          title: configProvider
-                                  .configModel!
-                                  .paymentMethods![index]
-                                  .additionalDatas
-                                  ?.gatewayTitle ??
-                              '',
-                        );
-                      },
+                              .configModel!.paymentMethods![0].keyName!,
+                          title: '',
+                        ),
+                        CustomCheckBox(
+                          index: 1,
+                          icon:
+                              '${configProvider.configModel?.paymentMethodImagePath}/${configProvider.configModel?.paymentMethods?[1].additionalDatas?.gatewayImage ?? ''}',
+                          name: configProvider
+                              .configModel!.paymentMethods![1].keyName!,
+                          title: '',
+                        ),
+                        CustomCheckBox(
+                          index: 2,
+                          icon:
+                              Images.cod,
+                          name: "",
+                          title: "Cash",
+                        ),
+                      ],
                     );
+                    // SizedBox(
+                    //   width: 300,
+                    //   child: ListView.builder(
+                    //     scrollDirection: Axis.horizontal,
+                    //     padding: EdgeInsets.zero,
+                    //     itemCount: configProvider
+                    //             .configModel?.paymentMethods?.length ??
+                    //         0,
+                    //     // shrinkWrap: true,
+                    //     physics: const ScrollPhysics(),
+                    //     itemBuilder: (context, index) {
+                    //       return CustomCheckBox(
+                    //         index: index,
+                    //         icon:
+                    //             '${configProvider.configModel?.paymentMethodImagePath}/${configProvider.configModel?.paymentMethods?[index].additionalDatas?.gatewayImage ?? ''}',
+                    //         name: configProvider
+                    //             .configModel!.paymentMethods![index].keyName!,
+                    //         title: configProvider
+                    //                 .configModel!
+                    //                 .paymentMethods![index]
+                    //                 .additionalDatas
+                    //                 ?.gatewayTitle ??
+                    //             '',
+                    //       );;
+                    //     },
+                    //   ),
+                    // );
                   }),
                 if (Provider.of<SplashProvider>(context, listen: false)
                             .configModel !=
@@ -225,7 +258,7 @@ class PaymentMethodBottomSheetState extends State<PaymentMethodBottomSheet> {
                                         null &&
                                     orderProvider.offlinePaymentModel!
                                         .offlineMethods!.isNotEmpty) {
-                                  orderProvider.setOfflineChecked('offline');
+                                  orderProvider.setOfflineChecked('offline',2,"");
                                 }
                               },
                               child: Padding(
@@ -262,7 +295,7 @@ class PaymentMethodBottomSheetState extends State<PaymentMethodBottomSheet> {
                                                     .offlineMethods!
                                                     .isNotEmpty) {
                                               orderProvider
-                                                  .setOfflineChecked('offline');
+                                                  .setOfflineChecked('offline',2,"");
                                             }
                                           }),
                                     ),
@@ -372,7 +405,7 @@ class PaymentMethodBottomSheetState extends State<PaymentMethodBottomSheet> {
                 //   buttonText: '${getTranslated('save', context)}',
                 //   onTap: () {
                 //     Navigator.of(context).pop();
-                   
+
                 //   },
                 // ),
               ],
