@@ -35,7 +35,6 @@ class ProductWidget extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.all(5),
-        // padding: const EdgeInsets.only(bottom: Dimensions.paddingSizeSmall),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).highlightColor,
@@ -131,19 +130,32 @@ class ProductWidget extends StatelessWidget {
                             height: 2,
                           )
                         : SizedBox.shrink(),
-                    Text(
-                        PriceConverter.convertPrice(
-                            context, productModel.unitPrice,
-                            discountType: productModel.discountType,
-                            discount: productModel.discount),
-                        style: titilliumSemiBold.copyWith(
-                            color: ColorResources.getPrimary(context))),
+                    // Text(productModel.variation!.length.toString()),
+
+                    (productModel.variation!.isNotEmpty)
+                        ? Text(
+                            '${PriceConverter.convertPrice(context, productModel.variation!.first.price, discount: productModel.discount, discountType: productModel.discountType)}'
+                            '${' - ${PriceConverter.convertPrice(context, productModel.variation![1].price, discount: productModel.discount, discountType: productModel!.discountType)}'}',
+                            style: titilliumSemiBold.copyWith(
+                                color: ColorResources.getPrimary(context)),
+                          )
+                        // Text(
+                        //     PriceConverter.convertPrice(
+                        //         context, productModel.variation!.first.price,
+                        //         discountType: productModel.discountType,
+                        //         discount: productModel.discount),
+                        //     style: titilliumSemiBold.copyWith(
+                        //         color: ColorResources.getPrimary(context)))
+                        : Text(
+                            PriceConverter.convertPrice(
+                                context, productModel.unitPrice,
+                                discountType: productModel.discountType,
+                                discount: productModel.discount),
+                            style: titilliumSemiBold.copyWith(
+                                color: ColorResources.getPrimary(context))),
                   ],
                 ),
               ]),
-
-          // Off
-
           productModel.discount! > 0
               ? Positioned(
                   top: 10,
@@ -174,7 +186,6 @@ class ProductWidget extends StatelessWidget {
                   ),
                 )
               : const SizedBox.shrink(),
-
           Positioned(
             top: 5,
             right: 5,

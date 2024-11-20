@@ -248,7 +248,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                           labelText: getTranslated('phone', context),
                           inputType: TextInputType.phone,
                           focusNode: _phoneFocus,
-                          hintText: profile.userInfoModel!.phone ?? "",
+                          hintText:(profile.userInfoModel!.phone ?? "").replaceFirst("+252", ""),
                           nextFocus: _addressFocus,
                           controller: _phoneController,
                           isAmount: true),

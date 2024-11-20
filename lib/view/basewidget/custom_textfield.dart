@@ -43,7 +43,7 @@ class CustomTextField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Function(CountryCode countryCode)? onCountryChanged;
   final bool required;
-
+  final int? maxLength;
   const CustomTextField({
     super.key,
     this.hintText = 'Write something...',
@@ -81,6 +81,7 @@ class CustomTextField extends StatefulWidget {
     this.required = false,
     this.suffixOnTap,
     this.prefixOnTap,
+    this.maxLength,
   });
 
   @override
@@ -114,6 +115,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ])),
         if (widget.titleText != null) const SizedBox(height: 8),
         TextFormField(
+          maxLength: widget.maxLength,
           maxLines: widget.maxLines,
           controller: widget.controller,
           focusNode: widget.focusNode,

@@ -249,45 +249,53 @@ class CartBottomSheetState extends State<CartBottomSheet> {
                                         const SizedBox(
                                             height:
                                                 Dimensions.paddingSizeSmall),
+                                        widget.product!.discount! > 0
+                                            ? Text(
+                                                PriceConverter.convertPrice(
+                                                    context,
+                                                    widget.product!.unitPrice),
+                                                style:
+                                                    titilliumRegular.copyWith(
+                                                        color: ColorResources
+                                                            .getRed(context),
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough),
+                                              )
+                                            : const SizedBox(),
                                         Row(
                                           children: [
                                             const SizedBox(
                                                 width: Dimensions
                                                     .paddingSizeDefault),
-                                            widget.product!.discount! > 0
+                                            (widget.product!.variation!
+                                                    .isNotEmpty)
                                                 ? Text(
+                                                    '${PriceConverter.convertPrice(context, widget.product!.variation!.first.price, discount: widget.product!.discount, discountType: widget.product!.discountType)}'
+                                                    '${' - ${PriceConverter.convertPrice(context, widget.product!.variation![1].price, discount: widget.product!.discount, discountType: widget.product!.discountType)}'}',
+                                                    style: titilliumRegular.copyWith(
+                                                        color: ColorResources
+                                                            .getPrimary(
+                                                                context),
+                                                        fontSize: Dimensions
+                                                            .fontSizeExtraLarge))
+                                                : Text(
                                                     PriceConverter.convertPrice(
                                                         context,
-                                                        widget.product!
-                                                            .unitPrice),
-                                                    style: titilliumRegular
-                                                        .copyWith(
-                                                            color: ColorResources
-                                                                .getRed(
-                                                                    context),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .lineThrough),
-                                                  )
-                                                : const SizedBox(),
-                                            const SizedBox(
-                                                width: Dimensions
-                                                    .paddingSizeDefault),
-                                            Text(
-                                              PriceConverter.convertPrice(
-                                                  context,
-                                                  widget.product!.unitPrice,
-                                                  discountType: widget
-                                                      .product!.discountType,
-                                                  discount:
-                                                      widget.product!.discount),
-                                              style: titilliumRegular.copyWith(
-                                                  color:
-                                                      ColorResources.getPrimary(
-                                                          context),
-                                                  fontSize: Dimensions
-                                                      .fontSizeExtraLarge),
-                                            ),
+                                                        widget
+                                                            .product!.unitPrice,
+                                                        discountType: widget
+                                                            .product!
+                                                            .discountType,
+                                                        discount: widget
+                                                            .product!.discount),
+                                                    style: titilliumRegular.copyWith(
+                                                        color: ColorResources
+                                                            .getPrimary(
+                                                                context),
+                                                        fontSize: Dimensions
+                                                            .fontSizeExtraLarge),
+                                                  ),
                                           ],
                                         ),
                                       ]),
@@ -332,6 +340,7 @@ class CartBottomSheetState extends State<CartBottomSheet> {
                                                       .product!.minimumOrderQty,
                                                   index,
                                                   context);
+                                            
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -419,16 +428,31 @@ class CartBottomSheetState extends State<CartBottomSheet> {
                                                 horizontal: Dimensions
                                                     .paddingSizeExtraSmall),
                                             child: InkWell(
-                                              onTap: () => Provider.of<
-                                                          ProductDetailsProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .setCartVariationIndex(
-                                                      widget.product!
-                                                          .minimumOrderQty,
-                                                      index,
-                                                      i,
-                                                      context),
+                                              onTap: () {
+                                                Provider.of<ProductDetailsProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .setCartVariationIndex(
+                                                        widget.product!
+                                                            .minimumOrderQty,
+                                                        index,
+                                                        i,
+                                                        context);
+                                                price = widget.product!
+                                                    .variation![i].price;
+                                                priceWithDiscount =
+                                                    PriceConverter
+                                                        .convertWithDiscount(
+                                                            context,
+                                                            price,
+                                                            widget.product!
+                                                                .discount,
+                                                            widget.product!
+                                                                .discountType)!;
+                                                priceWithQuantity =
+                                                    priceWithDiscount *
+                                                        details.quantity!;
+                                              },
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
@@ -551,7 +575,17 @@ class CartBottomSheetState extends State<CartBottomSheet> {
                             const SizedBox(width: Dimensions.paddingSizeSmall),
                             Text(
                               PriceConverter.convertPrice(
-                                  context, priceWithQuantity),
+                                  context,
+                                  (widget.product!.variation!.isNotEmpty)
+                                      ? (widget
+                                          .product!
+                                          .variation![Provider.of<
+                                                      ProductDetailsProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .variation]
+                                          .price! * details.quantity!)
+                                      : priceWithQuantity),
                               style: titilliumBold.copyWith(
                                   color: ColorResources.getPrimary(context),
                                   fontSize: Dimensions.fontSizeLarge),

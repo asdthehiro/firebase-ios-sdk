@@ -61,31 +61,38 @@ class OrderRepo {
   }
 
   Future<ApiResponse> placeOrder(
-      String? addressID,
-      String? couponCode,
-      String? couponDiscountAmount,
-      String? billingAddressId,
-      String? orderNote) async {
+    String? addressID,
+    String? couponCode,
+    String? couponDiscountAmount,
+    String? billingAddressId,
+    String? orderNote,
+    String guestId,
+  ) async {
     try {
       final response = await dioClient!.get(
-          '${AppConstants.orderPlaceUri}?address_id=$addressID&coupon_code=$couponCode&coupon_discount=$couponDiscountAmount&billing_address_id=$billingAddressId&order_note=$orderNote&guest_id=${Provider.of<AuthProvider>(Get.context!, listen: false).getGuestToken()}&is_guest=${Provider.of<AuthProvider>(Get.context!, listen: false).isLoggedIn() ? 0 : 1}');
+        '${AppConstants.orderPlaceUri}?address_id=$addressID&coupon_code=$couponCode&coupon_discount=$couponDiscountAmount&billing_address_id=$billingAddressId&order_note=$orderNote&guest_id=$guestId&is_guest=${Provider.of<AuthProvider>(Get.context!, listen: false).isLoggedIn() ? 0 : 1}',
+      );
+    
       return ApiResponse.withSuccess(response);
     } catch (e) {
-      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+      return 
+      ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 
   Future<ApiResponse> offlinePaymentPlaceOrder(
-      String? addressID,
-      String? couponCode,
-      String? couponDiscountAmount,
-      String? billingAddressId,
-      String? orderNote,
-      List<String?> typeKey,
-      List<String> typeValue,
-      int? id,
-      String name,
-      String? paymentNote) async {
+    String? addressID,
+    String? couponCode,
+    String? couponDiscountAmount,
+    String? billingAddressId,
+    String? orderNote,
+    List<String?> typeKey,
+    List<String> typeValue,
+    int? id,
+    String name,
+    String? paymentNote,
+    String guestId,
+  ) async {
     try {
       Map<String?, String> fields = {};
       Map<String?, String> info = {};
@@ -93,7 +100,7 @@ class OrderRepo {
       for (var i = 0; i < typeKey.length; i++) {
         info.addAll(<String?, String>{typeKey[i]: typeValue[i]});
       }
-
+      print("------------------");
       fields.addAll(<String, String>{
         "method_informations": base64.encode(utf8.encode(jsonEncode(info))),
         'method_name': name,
@@ -104,15 +111,10 @@ class OrderRepo {
         'coupon_discount': couponDiscountAmount ?? '',
         'billing_address_id': billingAddressId ?? '',
         'order_note': orderNote ?? '',
-        'guest_id': Provider.of<AuthProvider>(Get.context!, listen: false)
-                .getGuestToken() ??
-            '',
-        'is_guest':
-            Provider.of<AuthProvider>(Get.context!, listen: false).isLoggedIn()
-                ? '0'
-                : '1'
+        'guest_id': guestId,
+        'is_guest': "0",
       });
-
+      print(guestId);
       if (kDebugMode) {
         print('--here is type key =$id/$name');
       }

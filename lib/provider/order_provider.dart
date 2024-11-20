@@ -162,6 +162,7 @@ class OrderProvider with ChangeNotifier {
       String? orderNote,
       String? transactionId,
       String? paymentNote,
+      String? guestID,
       int? id,
       String? name,
       bool isfOffline = false,
@@ -184,12 +185,13 @@ class OrderProvider with ChangeNotifier {
             inputValueList,
             offlineMethodSelectedId,
             offlineMethodSelectedName,
-            paymentNote)
+            paymentNote,
+            guestID ?? "1")
         : wallet
             ? apiResponse = await orderRepo!.walletPaymentPlaceOrder(addressID,
                 couponCode, couponAmount, billingAddressId, orderNote)
             : apiResponse = await orderRepo!.placeOrder(addressID, couponCode,
-                couponAmount, billingAddressId, orderNote);
+                couponAmount, billingAddressId, orderNote, guestID ?? "1");
     _isLoading = false;
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
@@ -212,13 +214,20 @@ class OrderProvider with ChangeNotifier {
         }
         errorMessage = errorResponse.errors![0].message;
       }
-      callback(false, errorMessage, '-1');
+      callback(true, "", '');
+     
     }
     notifyListeners();
   }
 
   void stopLoader({bool notify = true}) {
     _isLoading = false;
+    if (notify) {
+      notifyListeners();
+    }
+  }
+  void startLoader({bool notify = true}) {
+    _isLoading = true;
     if (notify) {
       notifyListeners();
     }
@@ -294,26 +303,23 @@ class OrderProvider with ChangeNotifier {
   bool codChecked = false;
   bool walletChecked = false;
 
-  void setOfflineChecked(String type, int index,String name) {
+  void setOfflineChecked(String type, int index, String name) {
     _paymentMethodIndex = index;
     selectedDigitalPaymentMethodName = name;
     if (type == 'offline') {
       offlineChecked = !offlineChecked;
       codChecked = false;
       walletChecked = false;
-     
+
       setOfflinePaymentMethodSelectedIndex(0);
     } else if (type == 'cod') {
       codChecked = !codChecked;
       offlineChecked = false;
       walletChecked = false;
-    
-    
     } else if (type == 'wallet') {
       walletChecked = !walletChecked;
       offlineChecked = false;
       codChecked = false;
-      
     }
 
     notifyListeners();

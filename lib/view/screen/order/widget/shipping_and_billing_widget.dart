@@ -50,7 +50,7 @@ class ShippingAndBillingWidget extends StatelessWidget {
 
                   IconWithTextRow(
                     icon: Icons.call,
-                    text: '${orderProvider.orders!.shippingAddressData != null ? orderProvider.orders!.shippingAddressData!.phone : ''}',
+                    text: '${orderProvider.orders!.shippingAddressData != null ? orderProvider.orders!.shippingAddressData!.phone : ''}'.replaceFirst("+252", ""),
                   ),
                     const SizedBox(height: Dimensions.marginSizeSmall),
 
@@ -105,7 +105,7 @@ class ShippingAndBillingWidget extends StatelessWidget {
                       const SizedBox(height: Dimensions.marginSizeSmall),
                       IconWithTextRow(
                         icon: Icons.call,
-                        text: '${orderProvider.orders!.billingAddressData != null ? orderProvider.orders!.billingAddressData!.phone : ''}',
+                        text: '${orderProvider.orders!.billingAddressData != null ? orderProvider.orders!.billingAddressData!.phone : ''}'.replaceFirst("+252", ""),
                       ),
                       const SizedBox(height: Dimensions.marginSizeSmall),
 

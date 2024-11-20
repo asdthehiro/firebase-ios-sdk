@@ -24,37 +24,34 @@ class OrderDetailsModel {
   List<VerificationImages>? verificationImages;
   Order? order;
 
-
-  OrderDetailsModel(
-      {int? id,
-        int? orderId,
-        int? productId,
-        int? sellerId,
-        String? digitalFileAfterSell,
-        Product? productDetails,
-        int? qty,
-        double? price,
-        double? tax,
-        String? taxModel,
-        double? discount,
-        String? deliveryStatus,
-        String? paymentStatus,
-        String? createdAt,
-        String? updatedAt,
-        int? shippingMethodId,
-        String? variant,
-        int? refundReq,
-        Seller? seller,
-        List<VerificationImages>? verificationImages,
-        Order? order,
-
-
-      }) {
+  OrderDetailsModel({
+    int? id,
+    int? orderId,
+    int? productId,
+    int? sellerId,
+    String? digitalFileAfterSell,
+    Product? productDetails,
+    int? qty,
+    double? price,
+    double? tax,
+    String? taxModel,
+    double? discount,
+    String? deliveryStatus,
+    String? paymentStatus,
+    String? createdAt,
+    String? updatedAt,
+    int? shippingMethodId,
+    String? variant,
+    int? refundReq,
+    Seller? seller,
+    List<VerificationImages>? verificationImages,
+    Order? order,
+  }) {
     _id = id;
     _orderId = orderId;
     _productId = productId;
     _sellerId = sellerId;
-    if(digitalFileAfterSell != null){
+    if (digitalFileAfterSell != null) {
       _digitalFileAfterSell = digitalFileAfterSell;
     }
     _productDetails = productDetails;
@@ -75,7 +72,6 @@ class OrderDetailsModel {
     }
     this.verificationImages;
     this.order;
-
   }
 
   int? get id => _id;
@@ -103,10 +99,10 @@ class OrderDetailsModel {
     _orderId = json['order_id'];
     _productId = json['product_id'];
     _sellerId = json['seller_id'];
-    if(json['digital_file_after_sell'] != null) {
+    if (json['digital_file_after_sell'] != null) {
       _digitalFileAfterSell = json['digital_file_after_sell'];
     }
-    if(json['product_details'] != null) {
+    if (json['product_details'] != null) {
       _productDetails = Product.fromJson(json['product_details']);
     }
     _qty = json['qty'];
@@ -129,11 +125,8 @@ class OrderDetailsModel {
       });
     }
     order = json['order'] != null ? Order.fromJson(json['order']) : null;
-
   }
-
 }
-
 
 class VerificationImages {
   int? id;
@@ -152,7 +145,6 @@ class VerificationImages {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
-
 }
 
 class Order {
@@ -161,8 +153,6 @@ class Order {
   Order({this.isShippingFree});
 
   Order.fromJson(Map<String, dynamic> json) {
-    isShippingFree = int.parse(json['is_shipping_free'].toString());
+    isShippingFree = json['is_shipping_free'] == true ? 1 : 0;
   }
-
-
 }

@@ -117,13 +117,6 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                 padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
                 child: CustomButton(
                   onTap: () async {
-                    // if (orderProvider.addressIndex == null &&
-                    //     !widget.onlyDigital) {
-                    //   showCustomSnackBar(
-                    //       getTranslated('select_a_shipping_address', context),
-                    //       context,
-                    //       isToaster: true);
-                    // } else
                     if ((orderProvider.billingAddressIndex == null &&
                             !widget.hasPhysical) ||
                         (orderProvider.billingAddressIndex == null &&
@@ -177,7 +170,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                               .toString()
                           : '';
 
-                      if (orderProvider.paymentMethodIndex != -1) {
+                      if (orderProvider.paymentMethodIndex != 2) {
                         orderProvider.payerPhoneController.clear();
                         orderProvider.digitalPayment(
                           orderNote: orderNote,
@@ -198,18 +191,43 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                         );
                       } else if (orderProvider.codChecked &&
                           !widget.onlyDigital) {
+                        showAnimatedDialog(
+                            context,
+                            Dialog(
+                              backgroundColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: SizedBox(
+                                width: 20,
+                                height: 100,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            dismissible: false,
+                            isFlip: true);
                         orderProvider.placeOrder(
-                            callback: _callback,
-                            addressID:
-                                widget.onlyDigital ? '' : billingAddressId,
-                            couponCode: couponCode,
-                            couponAmount: couponCodeAmount,
-                            billingAddressId: _billingAddress
-                                ? billingAddressId
-                                : widget.onlyDigital
-                                    ? ''
-                                    : billingAddressId,
-                            orderNote: orderNote);
+                          callback: _callback,
+                          addressID: widget.onlyDigital ? '' : billingAddressId,
+                          couponCode: couponCode,
+                          couponAmount: couponCodeAmount,
+                          billingAddressId: _billingAddress
+                              ? billingAddressId
+                              : widget.onlyDigital
+                                  ? ''
+                                  : billingAddressId,
+                          orderNote: orderNote,
+                          guestID:
+                              Provider.of<AuthProvider>(context, listen: false)
+                                      .isLoggedIn()
+                                  ? profileProvider.userInfoModel?.id.toString()
+                                  : Provider.of<AuthProvider>(context,
+                                          listen: false)
+                                      .getGuestToken(),
+                        );
                       } else if (orderProvider.offlineChecked) {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (_) => OfflinePaymentScreen(
@@ -437,6 +455,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           isFlip: true);
 
       Provider.of<OrderProvider>(context, listen: false).stopLoader();
+      Provider.of<CartProvider>(context, listen: false).clearCart(context);
     } else {
       showCustomSnackBar(message, context, isToaster: true);
     }
