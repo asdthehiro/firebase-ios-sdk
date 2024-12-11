@@ -155,6 +155,7 @@ class SignInWidgetState extends State<SignInWidget> {
                             getTranslated('enter_mobile_number', context),
                         controller: _emailController,
                         focusNode: _emailNode,
+                        // nextFocus: _passwordFocus,
                         required: true,
                         showCodePicker: true,
                         countryDialCode: authProvider.countryDialCode,
@@ -177,18 +178,18 @@ class SignInWidgetState extends State<SignInWidget> {
                   ? Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: CustomTextField(
-                        showLabelText: true,
-                        required: true,
-                        labelText: getTranslated('password', context),
-                        hintText: getTranslated('enter_your_password', context),
-                        inputAction: TextInputAction.done,
-                        isPassword: true,
-                        // prefixIcon: Images.pass,
-                        focusNode: _passNode,
-                        controller: _passwordController,
-                        validator: (value) => ValidateCheck.validateEmptyText(
-                            value, 'ENTER_YOUR_PASSWORD'),
-                      ),
+                          showLabelText: true,
+                          required: true,
+                          labelText: getTranslated('password', context),
+                          hintText:
+                              getTranslated('enter_your_password', context),
+                          inputAction: TextInputAction.done,
+                          isPassword: true,
+                          // prefixIcon: Images.pass,
+                          focusNode: _passNode,
+                          controller: _passwordController,
+                          validator: (value) => ValidateCheck.validateEmptyText(
+                              value, 'ENTER_YOUR_PASSWORD')),
                     )
                   : SizedBox.shrink(),
 

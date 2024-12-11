@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_currency_pickers/country.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sixvalley_ecommerce/data/model/response/address_model.dart';
@@ -99,8 +98,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
           context);
       _contactPersonNameController.text =
           '${widget.address!.contactPersonName}';
-      _contactPersonNumberController.text =
-          '${widget.address!.phone}'.replaceFirst("+252", "");
+      _contactPersonNumberController.text = '${widget.address!.phone}';
       if (widget.address!.addressType == 'Home') {
         Provider.of<LocationProvider>(context, listen: false)
             .updateAddressIndex(0, false);
@@ -118,11 +116,10 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
             '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.fName ?? ''}'
             ' ${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.lName ?? ''}';
         _contactPersonNumberController.text =
-            (Provider.of<ProfileProvider>(context, listen: false)
-                        .userInfoModel!
-                        .phone ??
-                    '')
-                .replaceFirst("+252", "");
+            Provider.of<ProfileProvider>(context, listen: false)
+                    .userInfoModel!
+                    .phone ??
+                '';
       }
     }
   }
@@ -167,18 +164,10 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                       Consumer<AuthProvider>(
                           builder: (context, authProvider, _) {
                         return CustomTextField(
-                          // prefixIcon: Images.callIcon,
+                          prefixIcon: Images.callIcon,
                           labelText: getTranslated('phone', context),
                           hintText:
                               getTranslated('enter_mobile_number', context),
-                          required: true,
-                          showCodePicker: true,
-                          countryDialCode: authProvider.countryDialCode,
-                          onCountryChanged: (CountryCode countryCode) {
-                            authProvider.countryDialCode =
-                                countryCode.dialCode!;
-                            authProvider.setCountryCode(countryCode.dialCode!);
-                          },
                           inputType: TextInputType.phone,
                           controller: _contactPersonNumberController,
                           focusNode: _numberNode,
