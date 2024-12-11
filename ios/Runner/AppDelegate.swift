@@ -1,7 +1,5 @@
 import UIKit
 import Flutter
-import Firebase
-import GoogleMaps
 import flutter_downloader
 import FBSDKCoreKit
 import FBSDKLoginKit
@@ -14,7 +12,6 @@ import FBSDKLoginKit
   ) -> Bool {
     
     GeneratedPluginRegistrant.register(with: self)
-    FlutterDownloaderPlugin.setPluginRegistrantCallback(registerPlugins)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

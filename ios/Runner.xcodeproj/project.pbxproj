@@ -387,16 +387,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7WSYLQ8Y87;
+				DEVELOPMENT_TEAM = 7UQ7CKKZSB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = 6Valley;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				INFOPLIST_KEY_CFBundleDisplayName = Anhaaragro;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -406,7 +406,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sixamtech.sixValley;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anhaaragro.user;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -529,16 +529,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7WSYLQ8Y87;
+				DEVELOPMENT_TEAM = 7UQ7CKKZSB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = 6Valley;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				INFOPLIST_KEY_CFBundleDisplayName = Anhaaragro;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -548,7 +548,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sixamtech.sixValley;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anhaaragro.user;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -565,16 +565,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7WSYLQ8Y87;
+				DEVELOPMENT_TEAM = 7UQ7CKKZSB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = 6Valley;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				INFOPLIST_KEY_CFBundleDisplayName = Anhaaragro;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -584,7 +584,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sixamtech.sixValley;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anhaaragro.user;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
