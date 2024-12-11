@@ -1,8 +1,5 @@
 import UIKit
 import Flutter
-import flutter_downloader
-import FBSDKCoreKit
-import FBSDKLoginKit
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -10,9 +7,7 @@ import FBSDKLoginKit
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    
-    GeneratedPluginRegistrant.register(with: self)
+    GeneratedPluginRegistrant.register(with: self)  // Ensure this line is present
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
-

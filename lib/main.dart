@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'dart:io'; // Import Platform to check the OS
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -48,21 +49,29 @@ import 'provider/banner_provider.dart';
 import 'provider/flash_deal_provider.dart';
 import 'provider/product_provider.dart';
 
+// Declare the FlutterLocalNotificationsPlugin instance
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
-  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  // Initialize Firebase only for Android
+  if (Platform.isAndroid) {
+    await Firebase.initializeApp();
+  }
+
+  // Initialize other services, even for iOS
   await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
   await di.init();
 
-  flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.requestNotificationsPermission();
+  // Request permissions for notifications
+  // flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+  //         AndroidFlutterLocalNotificationsPlugin>?
+  //     requestNotificationsPermission;();
+
   await Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();
@@ -73,17 +82,15 @@ Future<void> main() async {
 
   NotificationBody? body;
   try {
-    final RemoteMessage? remoteMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
-    if (remoteMessage != null) {
-      // body = NotificationHelper.convertNotification(remoteMessage.data);
+    // Only get the initial message if Firebase is initialized (Android only)
+    if (Platform.isAndroid) {
+      final RemoteMessage? remoteMessage =
+          await FirebaseMessaging.instance.getInitialMessage();
+      if (remoteMessage != null) {
+        // body = NotificationHelper.convertNotification(remoteMessage.data);
+      }
     }
-    //  await NotificationHelper.initialize(flutterLocalNotificationsPlugin);
-    //FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
   } catch (_) {}
-
-  //await NotificationHelper.initialize(flutterLocalNotificationsPlugin);
-  //FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
 
   runApp(MultiProvider(
     providers: [
@@ -132,6 +139,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final NotificationBody? body;
+
   const MyApp({super.key, required this.body});
 
   @override
